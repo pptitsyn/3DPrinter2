@@ -1,0 +1,88 @@
+layerThickness=550
+initialLayerThickness=330
+filamentDiameter=1750
+filamentFlow=100
+PrintTemperature=210
+BedTemperature=50
+extrusionWidth=800
+layer0extrusionWidth=0
+insetCount=0
+infillOverlap=100
+initialSpeedupLayers=0
+initialLayerSpeed=30
+printSpeed=50
+infillSpeed=80
+skinSpeed=50
+inset0Speed=40
+insetXSpeed=60
+moveSpeed=150
+fanSpeedMin=50
+fanSpeedMax=100
+supportAngle=60
+supportEverywhere=0
+supportLineDistance=0
+supportXYDistance=700
+supportZDistance=150
+supportExtruder=0
+retractionAmount=4
+retractionSpeed=40
+retractionMinimalDistance=155
+retractionAmountExtruderSwitch=16
+retractionZHop=0
+minimalExtrusionBeforeRetraction=20
+enableCombing=0
+multiVolumeOverlap=0
+objectSink=0
+minimalLayerTime=5
+minimalFeedrate=0
+coolHeadLift=0
+perimeterBeforeInfill=1
+fixHorrible=1
+fanFullOnLayerNr=0
+supportType=0
+infillPattern=0
+sparseInfillLineDistance=800
+downSkinCount=0
+upSkinCount=0
+skirtDistance=3
+skirtLineCount=1
+skirtMinLength=0
+gcodeFlavor=0
+spiralizeMode=0
+enableOozeShield=0
+autoCenter=0
+startCode="""
+; Default start code
+G28 ; Home extruder
+G1 Z15 F
+M107 ; Turn off fan
+G90 ; Absolute positioning
+M82 ; Extruder in absolute mode
+M190 S50
+; Activate all used extruder
+M104 T0 S210
+G92 E0 ; Reset extruder position
+; Wait for all used extruders to reach temperature
+M109 T0 S210
+"""
+endCode="""
+; Default end code
+;G1 X0 Y0 Z130 ; Get extruder out of way. Uncomment to use!
+M107 ; Turn off fan
+; Disable all extruder
+G91 ; Relative positioning
+T0
+G1 E-1 ; Reduce filament pressure
+M104 T0 S0
+G90 ; Absolute positioning
+G92 E0 ; Reset extruder position
+M140 S0 ; Disable heated bed
+M84 ; Turn steppers off
+"""
+preSwitchExtruderCode="""
+
+"""
+postSwitchExtruderCode="""
+
+"""
+extruderOffset=System.Drawing.Point[]

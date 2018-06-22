@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="_3DPrinter.setting.view.GlobalSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:setting="clr-namespace:_3DPrinter.setting"
+             xmlns:_3DPrinter="clr-namespace:_3DPrinter"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <StackPanel Margin="20,0,20,0" Orientation="Vertical" HorizontalAlignment="Stretch">
+
+        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CommonSettings}" Style="{StaticResource HeaderTextBlockStyle}"  Margin="0 0 0 20" HorizontalAlignment="Left" />
+
+        <StackPanel x:Name="TextBoxGrid"  Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.WorkDirectory}" Margin="0 0 20 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+            <TextBox  x:Name="WorkDirTextBox" HorizontalAlignment="Stretch"  AcceptsReturn="True" Width="400" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=Global_Settings.Workdir}" />
+            <Button  Margin="20,0,20,0"  HorizontalAlignment="Right" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Overview}" Click="ButtonBase_OnClick"/>
+        </StackPanel>
+
+        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CurrentLanguage}" Margin="0 0 20 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+            <ComboBox x:Name="selectedLanguage" Width="480" ItemsSource="{Binding Source={x:Static setting:Localization.Instance}, Path=Languages}" SelectedItem="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage, Mode=TwoWay}" SelectionChanged="SelectedLanguage_OnSelectionChanged" DisplayMemberPath="Name"></ComboBox>
+        </StackPanel>
+        
+        <Grid Margin="0,20,0,0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.FileAssociations}" Margin="0 0 20 0" Grid.ColumnSpan="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+            <CheckBox x:Name="cb1" Grid.Column="0" Grid.Row="1" Content="*.stl" Margin="5" IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=OneWay, Path=Global_Settings.StlFile}" />
+            <CheckBox x:Name="cb2" Grid.Column="1" Grid.Row="1" Content="*.obj" Margin="5" IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=OneWay, Path=Global_Settings.ObjFile}" />
+            <CheckBox x:Name="cb3" Grid.Column="2" Grid.Row="1" Content="*.nc" Margin="5" IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=OneWay, Path=Global_Settings.NcFile}" />
+            <CheckBox x:Name="cb4" Grid.Column="0" Grid.Row="2" Content="*.g" Margin="5" IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=OneWay, Path=Global_Settings.GFile}" />
+            <CheckBox x:Name="cb5" Grid.Column="1" Grid.Row="2" Content="*.gco" Margin="5" IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=OneWay, Path=Global_Settings.GcoFile}" />
+            <CheckBox x:Name="cb6" Grid.Column="2" Grid.Row="2" Content="*.gcode" Margin="5" IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=OneWay, Path=Global_Settings.GcodeFile}" />
+
+            <Button  Margin="20,0,0,0" Grid.Row="3" Grid.ColumnSpan="3"  HorizontalAlignment="Right" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Associate}" Click="ButtonBase_OnClick2"/>
+        </Grid>
+
+
+    </StackPanel>
+</UserControl>

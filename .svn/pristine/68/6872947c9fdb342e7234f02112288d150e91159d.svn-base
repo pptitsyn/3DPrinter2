@@ -1,0 +1,809 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Documents;
+using System.Xml.Serialization;
+using Microsoft.Win32;
+using _3DPrinter.model;
+using _3DPrinter.model.geom;
+using _3DPrinter.setting;
+using _3DPrinter.setting.model;
+using _3DPrinter.utils;
+using _3DPrinter.view;
+using _3DPrinter.view.sliceVisual;
+using _3DPrinter.view.ThreeD;
+
+namespace _3DPrinter.projectManager
+{
+
+    public delegate void GCodeChangeDelegate(string gcode);
+    public class PrintCamProject : NotifyPropertyChangedBase
+    {
+
+        public event GCodeChangeDelegate GCodeChangeEvent;
+
+        private void GCodeChange(string gCode)
+        {
+            if (GCodeChangeEvent != null)
+                GCodeChangeEvent(gCode);
+        }
+
+        public PrintCamProject()
+        {
+            _listModels = new ObservableCollection<PrintModel>();
+//            BinaryDataList = new SerializableDictionary<string, byte[]>();
+            _models = new SerializableDictionary<string, ModelFromFile>();
+            _projectSettings = new SettingsModel();
+            IsNew = true;
+            InitViews();
+        }
+
+        public PrintCamProject(ThreeDControl control)
+            : this()
+        {
+            this.control = control;
+        }
+
+        public PrintCamProject(string file)
+        {
+            IsNew = false;
+        }
+
+
+        [XmlIgnore]
+        public ThreeDControl control;
+
+        public void SaveProject()
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "PrintCAM Projects (*.ptc)|*.ptc";
+
+            if (saveFile.ShowDialog() == true)
+            {
+             //   serializeList();
+                XmlSerializer x = new XmlSerializer(typeof(PrintCamProject));
+                StreamWriter writer = new StreamWriter(saveFile.FileName);
+                x.Serialize(writer, this);
+                writer.Close();
+                IsNew = false;
+                IsChanged = false;
+            }
+        }
+
+        private bool _isNew;
+        public bool IsNew
+        {
+            get { return _isNew; }
+            set
+            {
+                _isNew = value;
+                OnPropertyChanged("IsNew");
+            }
+        }
+
+        private bool _isChanged = false;
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return _isChanged; }
+            set
+            {
+                _isChanged = value;
+                OnPropertyChanged("IsChanged");
+            }
+        }
+
+        
+
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+        
+
+        private SettingsModel _projectSettings;
+        public SettingsModel projectSettings
+        {
+            get { return SettingsProvider.Instance.GetSettingsModel(); }
+            set
+            {
+                _projectSettings = value;
+                SettingsProvider.Instance.ChangeSettings(value);
+                OnPropertyChanged("projectSettings");
+            }
+        }
+
+
+        private string _gCode = "";
+        public string gCode
+        {
+            get { return _gCode; }
+            set
+            {
+                _gCode = value;
+                IsChanged = true;
+                OnPropertyChanged("gCode");
+            }
+        }
+
+        
+        private bool _availableModel = false;
+        public bool availableModel
+        {
+            get { return _availableModel; }
+            set
+            {
+                _availableModel = value;
+                OnPropertyChanged("availableModel");
+            }
+        }
+
+        
+        private bool _availableGCode = false;
+        public bool availableGCode
+        {
+            get { return _availableGCode; }
+            set
+            {
+                _availableGCode = value;
+                OnPropertyChanged("availableGCode");
+            }
+        }
+
+
+        private ObservableCollection<PrintModel> _listModels;
+        [XmlIgnore]
+        public ObservableCollection<PrintModel> ModelList
+        {
+            get { return _listModels; }
+            set
+            {
+                _listModels = value;
+                OnPropertyChanged("listModels");
+                OnPropertyChanged("IsNotEmpty");
+            }
+        }
+
+
+        /*
+        private SerializableDictionary<string, byte[]> _binaryDataList = new SerializableDictionary<string, byte[]>();
+        [XmlIgnore]
+        private SerializableDictionary<string, byte[]> BinaryDataList
+        {
+            get
+            {
+                return _binaryDataList;
+            }
+            set
+            {
+                _binaryDataList = value;
+            }
+        }
+        */
+
+        private SerializableDictionary<string, ModelFromFile> _models;
+      //  [XmlArray("Models"), XmlArrayItem(typeof(string), ElementName = "Model")]
+        public SerializableDictionary<string, ModelFromFile> Models
+        {
+            get { return _models; }
+            set
+            {
+                _models = value;
+            }
+        }
+
+
+        public void InitViews()
+        {
+            PreView = new ThreeDView();
+            InitSlicerView();
+        }
+
+        public void InitSlicerView()
+        {
+            GCodeVisual jobVisual = new GCodeVisual();
+            _slicerView = new ThreeDView();
+            _slicerView.SetEditor(false);
+            jobVisual.OwnerControl = control;
+            _slicerView.models.AddLast(jobVisual);
+
+        }
+/*
+        private void serializeList()
+        {
+            _models = new SerializableDictionary<string, ModelFromFile>();
+
+            foreach (var data in BinaryDataList)
+            {
+                _models.Add(data.Key, new ModelFromFile() { Code = Convert.ToBase64String(data.Value), Name = data.Key, ExtruderNumber = 0});
+            } 
+        }
+
+*/
+        public void deserialize()
+        {
+/*
+            _binaryDataList = new SerializableDictionary<string,byte[]>();
+
+            foreach (var str in Models)
+            {
+                _binaryDataList.Add(str.Key,Convert.FromBase64String(str.Value.Code));
+            }
+*/
+            _listModels = new ObservableCollection<PrintModel>();
+            foreach (var data in Models)
+            {
+                AddModels(data.Value,false);
+            }
+            IsChanged = false;
+            GCodeChange(gCode);
+        }
+
+        public bool EnableLoadModel()
+        {
+            return availableModel || (!availableModel && !availableGCode);
+        }
+
+        public bool EnableLoadCode()
+        {
+            return (!availableModel && !availableGCode) || availableGCode;
+        }
+
+        public void AddFileModels(string[] files)
+        {
+            foreach (string file in files)
+            {
+                FileInfo info = new FileInfo(file);
+                byte[] data = File.ReadAllBytes(file);
+                string modelName = info.Name;
+                int exist = Models.Count(x => x.Key == info.Name);
+                int point = modelName.IndexOf(".");
+                if (exist > 0)
+                {
+                    string ext = "";
+                    if (point != -1)
+                    {
+                        ext = modelName.Substring(point);
+                        modelName = modelName.Substring(0, point - 1);
+                    }
+
+                    int i = 0;
+                    do
+                    {
+                        i++;
+                       // modelName = info.Name + i;
+                    } while (Models.Count(x => x.Key == modelName + i + ext) > 0);
+                    modelName = modelName + i + ext;
+                }
+                ModelFromFile fromFile = new ModelFromFile() { Name = modelName, ExtruderNumber = 0, Data = data};
+                Models.Add(modelName, fromFile);
+                AddModels(fromFile,true);
+//                BinaryDataList.Add(modelName, data);
+
+            }
+        }
+
+        public void AddModels(ModelFromFile fromFile, bool isNew)//(string fileName,byte[] data)
+        {
+            if (!availableModel)
+            {
+                availableGCode = false;
+                gCode = "";
+                GCodeChange(gCode);
+                InitSlicerView();
+            }
+            availableModel = true;
+            IsChanged = true;
+            PrintModel model = new PrintModel(control,fromFile);
+            model.Load(fromFile.Name, fromFile.Data);
+            model.update();
+            if (isNew)
+            {
+                model.Center(SettingsProvider.Instance.Printer_Settings.PrintAreaWidth / 2, SettingsProvider.Instance.Printer_Settings.PrintAreaDepth / 2);
+                model.Land();
+            }
+            ModelList.Add(model);
+            if (model.ActiveModel.triangles.Count > 0)
+            {
+                PreView.models.AddLast(model);
+
+                if (isNew)
+                {
+                    Allocate(model);
+                    model.addAnimation(new DropAnimation("drop"));
+                }
+
+                updateSTLState(model);
+            }
+
+        }
+
+        public void AddGCode(string file)
+        {
+            if (!availableGCode)
+            {
+                RemoveAllModels();
+            }
+            gCode = System.IO.File.ReadAllText(file);
+            availableGCode = true;
+            GCodeChange(gCode);
+        }
+
+        private void RemoveAllModels()
+        {
+            PreView = new ThreeDView();
+            availableModel = false;
+            _models.Clear();
+//            _binaryDataList.Clear();
+            _listModels.Clear();
+        }
+
+
+        private ThreeDModel _selectedModel;
+        [XmlIgnore]
+        public ThreeDModel SelectedModel
+        {
+            get { return _selectedModel; }
+            set
+            {
+                if (_selectedModel != null)
+                    _selectedModel.Selected = false;
+                _selectedModel = value;
+                if (_selectedModel != null)
+                {
+                    _selectedModel.Selected = true;
+                    if (typeof (PrintModel) == _selectedModel.GetType())
+                        Analyse((PrintModel) _selectedModel);
+                }
+                OnPropertyChanged("SelectedModel");
+                SetIndex((PrintModel)_selectedModel);
+            }
+        }
+
+        private void SetIndex(PrintModel model)
+        {
+            if (model != null)
+            {
+                _selectedModelIndex = ModelList.IndexOf(model);
+
+            }
+            else
+            {
+                _selectedModelIndex = -1;
+            }
+
+            OnPropertyChanged("SelectedModelIndex");
+        }
+
+        private int _selectedModelIndex = -1;
+        public int SelectedModelIndex
+        {
+            get { return _selectedModelIndex; }
+            set
+            {
+                _selectedModelIndex = value;
+                if (_selectedModelIndex == -1)
+                {
+                    SelectedModel = null;
+                }
+                else
+                {
+                    SelectedModel = ModelList[_selectedModelIndex];
+                }
+            }
+        }
+
+        public void Analyse(PrintModel model)
+        {
+            TopoModel m = null;
+            if (model != null)
+            {
+                m = new TopoModel();
+                m.Merge(model.Model, model.trans);
+            }
+
+            ProjectManager.Instance.CurrentProject.projectSettings.PrintStatistic.UpadateModelInfo(m,model);
+        }
+
+
+        public bool IsNotEmpty
+        {
+            get { return Models.Count > 0; }
+            set
+            {
+                OnPropertyChanged("IsNotEmpty");
+            }
+        }
+
+        public LinkedList<PrintModel> ListObjects()
+        {
+            LinkedList<PrintModel> list = new LinkedList<PrintModel>();
+            foreach (PrintModel item in _listModels)
+                list.AddLast((PrintModel)item);
+            return list;
+        }
+
+
+        private ThreeDView _preView;
+
+        [XmlIgnore]
+        public ThreeDView PreView
+        {
+            get { return _preView; }
+            set { _preView = value; }
+        }
+
+        private ThreeDView _slicerView;
+
+        [XmlIgnore]
+        public ThreeDView SlicerView
+        {
+            get { return _slicerView; }
+            set { _slicerView = value; }
+        }
+
+        private bool autosizeFailed = false;
+
+
+        public void Fit()
+        {
+            if (ProjectManager.Instance.CurrentProject.SelectedModel != null)
+            {
+
+                float xRel = (ProjectManager.Instance.CurrentProject.projectSettings.PrinterSettings.PrintAreaWidth -5)/ (ProjectManager.Instance.CurrentProject.SelectedModel.xMax - ProjectManager.Instance.CurrentProject.SelectedModel.xMin);
+                float yRel = (ProjectManager.Instance.CurrentProject.projectSettings.PrinterSettings.PrintAreaDepth-5)/(ProjectManager.Instance.CurrentProject.SelectedModel.yMax -ProjectManager.Instance.CurrentProject.SelectedModel.yMin);
+                float zRel = (ProjectManager.Instance.CurrentProject.projectSettings.PrinterSettings.PrintAreaHeight-5)/(ProjectManager.Instance.CurrentProject.SelectedModel.zMax -ProjectManager.Instance.CurrentProject.SelectedModel.zMin);
+
+                float scale = Math.Min(Math.Min(xRel, yRel), zRel);
+
+                bool temp = ProjectManager.Instance.CurrentProject.SelectedModel.Scale.Lock;
+                ProjectManager.Instance.CurrentProject.SelectedModel.Scale.Lock = true;
+                ProjectManager.Instance.CurrentProject.SelectedModel.Scale.X = scale;
+                ProjectManager.Instance.CurrentProject.SelectedModel.Scale.Lock = temp;
+            }
+
+        }
+
+        public void Allocate(PrintModel stl)
+        {
+            stl.Center(SettingsProvider.Instance.Printer_Settings.BedLeft + SettingsProvider.Instance.Printer_Settings.PrintAreaWidth / 2, SettingsProvider.Instance.Printer_Settings.BedFront + SettingsProvider.Instance.Printer_Settings.PrintAreaDepth / 2);
+        }
+
+        public void Autoposition()
+        {
+            if (PreView.models.Count == 1)
+            {
+                PrintModel stl = (PrintModel)PreView.models.First(x => true);
+                stl.Center(SettingsProvider.Instance.Printer_Settings.BedLeft + SettingsProvider.Instance.Printer_Settings.PrintAreaWidth / 2, SettingsProvider.Instance.Printer_Settings.BedFront + SettingsProvider.Instance.Printer_Settings.PrintAreaDepth / 2);
+                return;
+            }
+
+            if (autosizeFailed) return;
+            RectPacker packer = new RectPacker(1, 1);
+            int border = 3;
+
+            PrinterSettingsModel ps = SettingsProvider.Instance.Printer_Settings;
+            float maxW = ps.PrintAreaWidth;
+            float maxH = ps.PrintAreaDepth;
+            float xOff = ps.BedLeft, yOff = ps.BedFront;
+            if (ps.printerType == 1)
+            {
+                if (ps.DumpAreaFront <= 0)
+                {
+                    yOff = ps.BedFront + ps.DumpAreaDepth - ps.DumpAreaFront;
+                    maxH -= yOff;
+                }
+                else if (ps.DumpAreaDepth + ps.DumpAreaFront >= maxH)
+                {
+                    yOff = ps.BedFront + -(maxH - ps.DumpAreaFront);
+                    maxH += yOff;
+                }
+                else if (ps.DumpAreaLeft <= 0)
+                {
+                    xOff = ps.BedLeft + ps.DumpAreaWidth - ps.DumpAreaLeft;
+                    maxW -= xOff;
+                }
+                else if (ps.DumpAreaWidth + ps.DumpAreaLeft >= maxW)
+                {
+                    xOff = ps.BedLeft + maxW - ps.DumpAreaLeft;
+                    maxW += xOff;
+                }
+            }
+            foreach (PrintModel stl in PreView.models)
+            {
+                int w = 2 * border + (int)Math.Ceiling(stl.xMax - stl.xMin);
+                int h = 2 * border + (int)Math.Ceiling(stl.yMax - stl.yMin);
+                if (!packer.addAtEmptySpotAutoGrow(new PackerRect(0, 0, w, h, stl), (int)maxW, (int)maxH))
+                {
+                    autosizeFailed = true;
+                }
+            }
+            if (autosizeFailed)
+            {
+                System.Windows.MessageBox.Show("Too many objects on printer bed for automatic packing.\r\nPacking disabled until elements are removed.",
+                "Printer bed full");
+                return;
+            }
+            float xAdd = (maxW - packer.w) / 2.0f;
+            float yAdd = (maxH - packer.h) / 2.0f;
+            foreach (PackerRect rect in packer.vRects)
+            {
+                PrintModel s = (PrintModel)rect.obj;
+                float xPos = xOff + xAdd + rect.x + border;
+                float yPos = yOff + yAdd + rect.y + border;
+                s.Position.X += xPos - s.xMin;
+                s.Position.Y += yPos - s.yMin;
+                s.UpdateBoundingBox();
+            }
+        }
+
+        public void updateSelectedModel()
+        {
+            if (SelectedModel != null)
+            {
+            updateSTLState((PrintModel)SelectedModel);
+                }
+        }
+
+        public void updateSTLState(PrintModel stl2)
+        {
+            bool dataChanged = false;
+            PrinterSettingsModel ps = SettingsProvider.Instance.Printer_Settings;
+            stl2.UpdateBoundingBox();
+            //LinkedList<PrintModel> testList = models;//ListObjects(false);
+            foreach (PrintModel pm in PreView.models)
+            {
+                pm.oldOutside = pm.outside;
+                pm.outside = false;
+            }
+            foreach (PrintModel pm in PreView.models)
+            {
+                foreach (PrintModel pm2 in PreView.models)
+                {
+                    if (pm == pm2) continue;
+                    if (pm2.bbox.IntersectsBox(pm.bbox))
+                    {
+                        pm.outside = true;
+                        pm2.outside = true;
+                    }
+                }
+            }
+            foreach (PrintModel stl in PreView.models)
+            {
+                if (!ps.PointInside(stl.xMin, stl.yMin, stl.zMin) ||
+                    !ps.PointInside(stl.xMax, stl.yMin, stl.zMin) ||
+                    !ps.PointInside(stl.xMin, stl.yMax, stl.zMin) ||
+                    !ps.PointInside(stl.xMax, stl.yMax, stl.zMin) ||
+                    !ps.PointInside(stl.xMin, stl.yMin, stl.zMax) ||
+                    !ps.PointInside(stl.xMax, stl.yMin, stl.zMax) ||
+                    !ps.PointInside(stl.xMin, stl.yMax, stl.zMax) ||
+                    !ps.PointInside(stl.xMax, stl.yMax, stl.zMax))
+                {
+                    stl.outside = true;
+                }
+            }
+            foreach (PrintModel pm in PreView.models)
+            {
+                if (pm.oldOutside != pm.outside)
+                {
+                    dataChanged = true;
+                    pm.ForceViewRegeneration();
+                    if (SettingsProvider.Instance.ThreeDSettings.pulseOutside)
+                    {
+                        if (!pm.hasAnimationWithName("pulse") && pm.outside)
+                            pm.addAnimation(new PulseAnimation("pulse", 0.03, 0.03, 0.03, 0.3));
+                        if (pm.hasAnimationWithName("pulse") && !pm.outside)
+                            pm.removeAnimationWithName("pulse");
+                    }
+                }
+            }
+
+            if (dataChanged)
+            {
+                //            listObjects.Refresh();
+            }
+        }
+
+        public void DeleteModel(ThreeDModel threeDModel)
+        {
+            ModelList.Remove((PrintModel)threeDModel);
+            SelectedModelIndex = - 1;
+            PreView.models.Remove(threeDModel);
+        }
+
+        /*
+        public ObservableCollection<MaterialSettingsModel> Materials
+        {
+            get
+            {
+                return 
+            }
+        }
+        */
+    }
+
+
+
+    public class ModelFromFile: NotifyPropertyChangedBase
+    {
+
+        private string _name;
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+        private int _extruderNumber;
+
+        public int ExtruderNumber
+        {
+            get { return _extruderNumber; }
+            set
+            {
+                _extruderNumber = value;
+                OnPropertyChanged("ExtruderNumber");
+            }
+        }
+
+        private string _code;
+
+        public string Code
+        {
+            get { return _code; }
+            set
+            {
+                _code = value;
+                OnPropertyChanged("Code");
+                StringToByte(_code);
+            }
+        }
+
+        private byte[] _data;
+        [XmlIgnore]
+        public byte[] Data
+        {
+            get { return _data; }
+            set
+            {
+                _data = value;
+                OnPropertyChanged("Data");
+                ByteToString(_data);
+            }
+        }
+
+
+
+        private Coord3D position = new Coord3D();
+
+        public Coord3D Position
+        {
+            get { return position; }
+            set
+            {
+                position = value;
+                OnPropertyChanged("Position");
+            }
+        }
+
+
+        private Coord3D rotation =  new Coord3D();
+        public Coord3D Rotation
+        {
+            get { return rotation; }
+            set
+            {
+                rotation = value;
+                OnPropertyChanged("Rotation");
+            }
+        }
+
+
+        private Coord3D scale = new Coord3D(1, 1, 1);
+        public Coord3D Scale
+        {
+            get { return scale; }
+            set
+            {
+                scale = value;
+                OnPropertyChanged("Scale");
+            }
+        }
+
+
+        private void StringToByte(string code)
+        {
+            _data = Convert.FromBase64String(code);
+        }
+
+        private void ByteToString(byte[] data)
+        {
+            _code = Convert.ToBase64String(data);
+        }
+
+
+    }
+
+
+
+    [XmlRoot("Models")]
+    public class SerializableDictionary<TKey, TValue>
+        : Dictionary<TKey, TValue>, IXmlSerializable
+    {
+        #region IXmlSerializable Members
+        public System.Xml.Schema.XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(System.Xml.XmlReader reader)
+        {
+            XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
+            XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
+
+            bool wasEmpty = reader.IsEmptyElement;
+            reader.Read();
+
+            if (wasEmpty)
+                return;
+
+            reader.ReadStartElement("item");
+
+            while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            {
+                reader.ReadStartElement("key");
+                TKey key = (TKey)keySerializer.Deserialize(reader);
+                reader.ReadEndElement();
+
+                reader.ReadStartElement("value");
+                TValue value = (TValue)valueSerializer.Deserialize(reader);
+                reader.ReadEndElement();
+
+                this.Add(key, value);
+
+                reader.MoveToContent();
+            }
+
+            reader.ReadEndElement();
+        }
+
+        public void WriteXml(System.Xml.XmlWriter writer)
+        {
+            XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
+            XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
+
+            writer.WriteStartElement("item");
+
+            foreach (TKey key in this.Keys)
+            {
+                writer.WriteStartElement("key");
+                keySerializer.Serialize(writer, key);
+                writer.WriteEndElement();
+
+                writer.WriteStartElement("value");
+                TValue value = this[key];
+                valueSerializer.Serialize(writer, value);
+                writer.WriteEndElement();
+            }
+
+            writer.WriteEndElement();
+        }
+        #endregion
+    }
+}

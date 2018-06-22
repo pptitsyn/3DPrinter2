@@ -1,0 +1,304 @@
+﻿<UserControl x:Class="_3DPrinter.setting.view.ThreeDSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:setting="clr-namespace:_3DPrinter.setting"
+             xmlns:view="clr-namespace:_3DPrinter.setting.view"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400">
+    
+    <UserControl.Resources>
+        <view:MColorToDColorConverter x:Key="MColor_To_DColor" />
+    </UserControl.Resources>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="20,0,20,20">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+<!--
+        <StackPanel x:Name="AccordionGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,0,20,20">
+-->
+
+        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Visualization}" Margin="0 0 0 20" Grid.Row="0" HorizontalAlignment="Left" Style="{StaticResource HeaderTextBlockStyle}" />
+        <controls:Accordion HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Grid.Row="1">
+            <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Common}" HorizontalContentAlignment="Stretch" >
+                    <Grid HorizontalAlignment="Stretch" Margin="15,7">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                    <CheckBox x:Name="cb6" Grid.Row="5" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ShowPrintBed}" Margin="0,5,5,5" Grid.ColumnSpan="2" IsChecked="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=ThreeDSettings.showPrintbed, Mode=TwoWay}" />
+                    <CheckBox x:Name="cb7" Grid.Row="6" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ShowCompass}" Margin="0,5,5,5" Grid.ColumnSpan="2" IsChecked="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=ThreeDSettings.ShowCompass, Mode=TwoWay}" />
+
+
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.BackgroundTop}" Margin="0 0 20 0" Grid.Row="0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.BackgroungBottom}" Margin="0 0 20 0" Grid.Row="1" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.BedColor}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrinterFrameColor}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.backgroundTop, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1"  Width="150"  Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.backgroundBottom, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.printerBase, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.printerFrame, Converter={StaticResource MColor_To_DColor}}"/>
+
+                    <Border BorderThickness="1" Height="1" HorizontalAlignment="Stretch" Margin="20,20,20,20" BorderBrush="White" Grid.Row="4" Grid.ColumnSpan="2"></Border>
+
+                </Grid>
+            </controls:AccordionItem>
+            <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Model}" HorizontalContentAlignment="Stretch" >
+                <Grid HorizontalAlignment="Stretch"  Margin="15,7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.FaceColor}" Margin="0 0 20 0" Grid.Row="0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.InnerFaceColor}" Margin="0 0 20 0" Grid.Row="1" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CuttedFaceColor}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Edges}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SelectedObjectColor}" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SelectedFrameColor}" Margin="0 0 20 0" Grid.Row="5" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.OuterObjectColor}" Margin="0 0 20 0" Grid.Row="6" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ErrorObject}" Margin="0 0 20 0" Grid.Row="7" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ErrorEdgeColor}" Margin="0 0 20 0" Grid.Row="8" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.faces, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1"  Width="150"  Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.insideFaces, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.cutFaces, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.edges, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.selectedFaces, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="5" Grid.Column="1"  Width="150"  Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.selectionBox, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="6" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.outsidePrintbed, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="7" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.errorModel, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="8" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.errorModelEdge, Converter={StaticResource MColor_To_DColor}}"/>
+
+                  </Grid>
+            </controls:AccordionItem>
+            <controls:AccordionItem  Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Filament}"  HorizontalContentAlignment="Stretch" >
+                <Grid HorizontalAlignment="Stretch" Margin="15,7" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.FilamentColor}" Margin="0 0 20 0" Grid.Row="0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.FilamentColor}" Margin="0 0 20 0" Grid.Row="1" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.HotFilamentColor}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SelectedFilamentColor}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+<!--                    
+                    <TextBlock Text="Длина горячей нити (мм)" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="Диаметр нити (мм)" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+-->
+
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.filament, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1"  Width="150"  Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.filament2, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.hotFilament, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.selectedFilament, Converter={StaticResource MColor_To_DColor}}"/>
+<!--
+                    <TextBox Margin="0,5,0,5" Width="150"  Grid.Row="5" Grid.Column="1" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.filamentDiameter}" HorizontalAlignment="Right"/>
+                    <TextBox Margin="0,5,0,5" Width="150" Grid.Row="4" Grid.Column="1"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.hotFilamentLength}" HorizontalAlignment="Right"/>
+-->
+
+                </Grid>
+            </controls:AccordionItem>
+            <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Lights}" HorizontalContentAlignment="Stretch" Padding="0" >
+                <controls:Accordion HorizontalAlignment="Stretch" Margin="5,5" >
+                    <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Light1}" HorizontalContentAlignment="Stretch" >
+                        <Grid HorizontalAlignment="Stretch"  Margin="15,7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <CheckBox Grid.ColumnSpan="2" Grid.Row="0" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.LightEnable}" Margin="0,5,5,5" IsChecked="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=ThreeDSettings.enableLight1, Mode=TwoWay}" />
+
+                     <StackPanel Grid.ColumnSpan="2"  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.LightDirection}" Margin="0 0 20 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        
+                        <TextBlock Text="X" Margin="20 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.xdir1}"/>
+
+                        <TextBlock Text="Y" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.ydir1}"/>
+
+                        <TextBlock Text="Z" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.zdir1}"/>
+                    </StackPanel>
+
+                            <TextBlock Grid.Column="0"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.AmbientColor}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DifusseColor}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Specular}" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            
+                    <xctk:ColorPicker  HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.ambient1, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.diffuse1, Converter={StaticResource MColor_To_DColor}}"/>
+                    <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.specular1, Converter={StaticResource MColor_To_DColor}}"/>
+
+
+                        </Grid>
+                    </controls:AccordionItem>
+                    <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Light2}" HorizontalContentAlignment="Stretch" >
+                        <Grid HorizontalAlignment="Stretch"  Margin="15,7">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <CheckBox Grid.Row="0" Grid.ColumnSpan="2"  Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.LightEnable}" Margin="0,5,5,5" IsChecked="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=ThreeDSettings.enableLight2, Mode=TwoWay}" />
+                            <StackPanel Grid.ColumnSpan="2"  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.LightDirection}" Margin="0 0 20 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Text="X" Margin="20 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.xdir2}"/>
+                            <TextBlock Text="Y" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.ydir2}"/>
+                            <TextBlock Text="Z" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.zdir2}"/>
+                        </StackPanel>
+
+
+                            <TextBlock Grid.Column="0"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.AmbientColor}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DifusseColor}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Specular}" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <xctk:ColorPicker  HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.ambient2, Converter={StaticResource MColor_To_DColor}}"/>
+                            <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.diffuse2, Converter={StaticResource MColor_To_DColor}}"/>
+                            <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.specular2, Converter={StaticResource MColor_To_DColor}}"/>
+
+
+                        </Grid>
+                    </controls:AccordionItem>
+                    <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Light3}" HorizontalContentAlignment="Stretch" >
+                        <Grid HorizontalAlignment="Stretch"  Margin="15,7">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+
+
+                            <CheckBox Grid.ColumnSpan="2" Grid.Row="0" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.LightEnable}" Margin="0,5,5,5" IsChecked="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=ThreeDSettings.enableLight3, Mode=TwoWay}" />
+                            <StackPanel Grid.ColumnSpan="2"  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.LightDirection}" Margin="0 0 20 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Text="X" Margin="20 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.xdir3}"/>
+                            <TextBlock Text="Y" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.ydir3}"/>
+                            <TextBlock Text="Z" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.zdir3}"/>
+                        </StackPanel>
+
+
+                            <TextBlock Grid.Column="0"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.AmbientColor}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DifusseColor}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Specular}" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <xctk:ColorPicker  HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.ambient3, Converter={StaticResource MColor_To_DColor}}"/>
+                            <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.diffuse3, Converter={StaticResource MColor_To_DColor}}"/>
+                            <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.specular3, Converter={StaticResource MColor_To_DColor}}"/>
+
+
+
+                        </Grid>
+                    </controls:AccordionItem>
+                    <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Light4}" HorizontalContentAlignment="Stretch" >
+                        <Grid HorizontalAlignment="Stretch"  Margin="15,7" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <CheckBox Grid.ColumnSpan="2"  Grid.Row="0" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.LightEnable}" Margin="0,5,5,5" IsChecked="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=ThreeDSettings.enableLight4, Mode=TwoWay}" />
+                            <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.LightDirection}" Margin="0 0 20 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="X" Margin="20 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.xdir4}"/>
+                            <TextBlock Text="Y" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.ydir4}"/>
+                            <TextBlock Text="Z" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.zdir4}"/>
+                        </StackPanel>
+
+
+                            <TextBlock Grid.Column="0"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.AmbientColor}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DifusseColor}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="0" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Specular}" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <xctk:ColorPicker  HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.ambient4, Converter={StaticResource MColor_To_DColor}}"/>
+                            <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.diffuse4, Converter={StaticResource MColor_To_DColor}}"/>
+                            <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=ThreeDSettings.specular4, Converter={StaticResource MColor_To_DColor}}"/>
+
+
+                        </Grid>
+                    </controls:AccordionItem>
+                </controls:Accordion>
+            </controls:AccordionItem>
+        </controls:Accordion>
+   </Grid>     
+<!--        
+    </StackPanel>
+-->
+</UserControl>

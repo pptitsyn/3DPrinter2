@@ -1,0 +1,341 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+using _3DPrinter.utils;
+
+namespace _3DPrinter.setting.model
+{
+
+
+    [XmlRoot("Settings")]
+    [XmlInclude(typeof(GlobalSettingsModel))]
+    [XmlInclude(typeof(PrinterSettingsModel))]
+    [XmlInclude(typeof(ThreeDSettingsModel))]
+
+    public class SettingsModel: NotifyPropertyChangedBase
+    {
+
+        public SettingsModel()
+        {
+            _printerSettings = new PrinterSettingsModel();
+            _printerSettingsCollection = new ObservableCollection<PrinterSettingsModel>();
+            _globalSettings = new GlobalSettingsModel();
+            _commonSettings = new CommonSettingsModel();
+            _threedSettings = new ThreeDSettingsModel();
+            _slicerSettingsCollection = new ObservableCollection<SlicerSettingsModel>();
+            _statisticModel = new StatisticModel();
+            _materialSettingsCollection = new ObservableCollection<MaterialSettingsModel>();
+        }
+
+
+        private GlobalSettingsModel _globalSettings;
+        
+        [XmlElement("Global")]
+        public GlobalSettingsModel GlobalSettings
+        {
+            get { return _globalSettings; }
+            set
+            {
+                _globalSettings = value;
+                OnPropertyChanged("GlobalSettings");
+            }
+        }
+
+
+        private CommonSettingsModel _commonSettings;
+        
+        [XmlElement("Common")]
+        public CommonSettingsModel CommonSettings
+        {
+            get { return _commonSettings; }
+            set
+            {
+                _commonSettings = value;
+                OnPropertyChanged("CommonSettings");
+            }
+        }
+
+
+        public void SetIndexByPrinterSettings(PrinterSettingsModel model)
+        {
+            int index = _printerSettingsCollection.IndexOf(model);
+            if (index != -1)
+            {
+                _selectedPrinterSettingsIndex = index;
+            }
+            else
+            {
+                throw new Exception("object not found in collection (SetIndexByPrinterSettings)");
+            }
+        }
+
+        public void SetIndexBySlicerSettings(SlicerSettingsModel model)
+        {
+            int index = _slicerSettingsCollection.IndexOf(model);
+            if (index != -1)
+            {
+                _selectedSlicerSettingsIndex = index;
+            }
+            else
+            {
+                throw new Exception("object not found in collection (SetIndexBySlicerSettings)");
+            }
+        }
+
+        public void SetIndexByMaterialSettings(MaterialSettingsModel model)
+        {
+            int index = _materialSettingsCollection.IndexOf(model);
+            if (index != -1)
+            {
+                _selectedMaterialSettingsIndex = index;
+            }
+            else
+            {
+                throw new Exception("object not found in collection (SetIndexBySlicerSettings)");
+            }
+        }
+
+        private void SelectPrinterSettingsByIndex(int index)
+        {
+            if (_printerSettingsCollection.Count > index)
+            {
+                _printerSettings = _printerSettingsCollection[index];
+            }
+            else
+            {
+                throw new Exception("Index out of range (SelectPrinterSettingsByIndex)");
+            }
+        }
+
+        private void SelectSlicerSettingsByIndex(int index)
+        {
+            if (index > -1)
+            {
+            if (_slicerSettingsCollection.Count > index)
+            {
+                _slicerSettings = _slicerSettingsCollection[index];
+            }
+            else
+            {
+                throw new Exception("Index out of range (SelectPrinterSettingsByIndex)");
+            }
+            }
+        }
+
+
+        private void SelectMaterialSettingsByIndex(int index)
+        {
+            if (index > -1)
+            {
+                if (_materialSettingsCollection.Count > index)
+                {
+                    _materialSettings = _materialSettingsCollection[index];
+                }
+                else
+                {
+                 //   throw new Exception("Index out of range (SelectMaterialSettingsByIndex)");
+                }
+            }
+        }
+
+        private ThreeDSettingsModel _threedSettings;
+
+        [XmlElement("ThreeD")]
+        public ThreeDSettingsModel ThreeDSettings
+        {
+            get { return _threedSettings; }
+            set
+            {
+                _threedSettings = value;
+                OnPropertyChanged("ThreeDSettings");
+            }
+        }
+
+        private ObservableCollection<MaterialSettingsModel> _materialSettingsCollection;
+
+        [XmlArray("MaterialSettingsCollection"), XmlArrayItem(typeof(MaterialSettingsModel), ElementName = "MaterialSettings")]
+        public ObservableCollection<MaterialSettingsModel> MaterialSettingsCollection
+        {
+            get
+            {
+                return _materialSettingsCollection;
+            }
+            set
+            {
+                _materialSettingsCollection = value;
+                OnPropertyChanged("MaterialSettingsCollection");
+            }
+        }
+
+
+
+
+        private ObservableCollection<SlicerSettingsModel> _slicerSettingsCollection;
+
+        [XmlArray("SlicerSettingsCollection"), XmlArrayItem(typeof(SlicerSettingsModel), ElementName = "SlicerSettings")]
+        public ObservableCollection<SlicerSettingsModel> SlicerSettingsCollection
+        {
+            get
+            {
+                return _slicerSettingsCollection;
+            }
+            set
+            {
+                _slicerSettingsCollection = value;
+                OnPropertyChanged("SlicerSettingsCollection");
+            }
+        }
+
+        
+        private int _selectedSlicerSettingsIndex;
+
+        [XmlElement("SelectedSlicerIndex")]
+        public int SelectedSlicerSettingsIndex
+        {
+            get { return _selectedSlicerSettingsIndex; }
+            set
+            {
+                _selectedSlicerSettingsIndex = value;
+                SelectSlicerSettingsByIndex(value);
+                OnPropertyChanged("SelectedSlicerSettingsIndex");
+                OnPropertyChanged("SelectedSlicerSettings");
+            }
+        }
+
+        private int _selectedMaterialSettingsIndex;
+
+        [XmlElement("SelectedMaterialIndex")]
+        public int SelectedMaterialIndex
+        {
+            get { return _selectedMaterialSettingsIndex; }
+            set
+            {
+                _selectedMaterialSettingsIndex = value;
+                SelectMaterialSettingsByIndex(value);
+                OnPropertyChanged("SelectedMaterialIndex");
+                OnPropertyChanged("SelectedMaterialSettings");
+            }
+        }
+
+        private SlicerSettingsModel _slicerSettings;
+        [XmlIgnore]
+        public SlicerSettingsModel SelectedSlicerSettings
+        {
+            get
+            {
+                return _slicerSettings;
+            }
+            set
+            {
+                _slicerSettings = value;
+                SetIndexBySlicerSettings(value);
+                OnPropertyChanged("SelectedSlicerSettings");
+                OnPropertyChanged("SelectedSlicerSettingsIndex");
+            }
+        }
+
+        
+
+        private MaterialSettingsModel _materialSettings;
+        [XmlIgnore]
+        public MaterialSettingsModel SelectedMaterialSetting
+        {
+            get
+            {
+                return _materialSettings;
+            }
+            set
+            {
+                _materialSettings = value;
+                SetIndexByMaterialSettings(value);
+                OnPropertyChanged("SelectedMaterialSetting");
+                OnPropertyChanged("SelectedMaterialSettingsIndex");
+            }
+        }
+
+
+
+
+
+        private ObservableCollection<PrinterSettingsModel> _printerSettingsCollection;
+
+        [XmlArray("PrinterSettingsCollection"), XmlArrayItem(typeof(PrinterSettingsModel), ElementName = "PrinterSettings")]
+        public ObservableCollection<PrinterSettingsModel> PrinterSettingsCollection
+        {
+            get
+            {
+                return _printerSettingsCollection;
+            }
+            set
+            {
+                _printerSettingsCollection = value;
+                OnPropertyChanged("PrinterSettingsCollection");
+            }
+        }
+
+
+        private int _selectedPrinterSettingsIndex;
+
+        [XmlElement("SelectedPrinterIndex")]
+        public int SelectedPrinterSettingsIndex
+        {
+            get { return _selectedPrinterSettingsIndex; }
+            set
+            {
+                _selectedPrinterSettingsIndex = value;
+                SelectPrinterSettingsByIndex(value);
+                OnPropertyChanged("SelectedPrinterSettingsIndex");
+                OnPropertyChanged("PrinterSettings");
+            }
+        }
+
+
+        private PrinterSettingsModel _printerSettings;
+        [XmlIgnore]
+        public PrinterSettingsModel PrinterSettings
+        {
+            get { return _printerSettings; }
+            set
+            {
+                _printerSettings = value;
+                SetIndexByPrinterSettings(value);
+                OnPropertyChanged("PrinterSettings");
+                OnPropertyChanged("SelectedPrinterIndex");
+            }
+        }
+
+
+        private StatisticModel _statisticModel;
+
+        public StatisticModel PrintStatistic
+        {
+            get { return _statisticModel; }
+            set
+            {
+                _statisticModel = value;
+                OnPropertyChanged("PrintStatistic");
+            }
+        }
+
+
+
+        private RecentFilesSetting _recentFiles = new RecentFilesSetting();
+        public RecentFilesSetting RecentFiles
+        {
+            get { return _recentFiles; }
+            set
+            {
+                _recentFiles = value;
+                OnPropertyChanged("RecentFiles");
+            }
+        }
+
+
+
+    }
+
+}

@@ -1,0 +1,52 @@
+﻿<Window x:Class="_3DPrinter.setting.view.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:setings_view="clr-namespace:_3DPrinter.setting.view"
+        xmlns:model="clr-namespace:_3DPrinter.setting.model"
+        xmlns:setting="clr-namespace:_3DPrinter.setting"
+        Title="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Settings}" Height="700" Width="800" Style="{StaticResource SettingWindowStyle}" WindowStartupLocation="CenterOwner" >
+    
+    <Window.Resources>
+
+
+        <DataTemplate DataType="{x:Type model:GlobalSettingsModel}">
+             <setings_view:GlobalSettingsView/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type model:ThreeDSettingsModel}">
+            <setings_view:ThreeDSettingsView/>
+        </DataTemplate>
+            
+        <DataTemplate DataType="{x:Type model:PrinterSettingsModel}">
+            <setings_view:PrinterSettingsView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type model:SlicerSettingsModel}">
+            <setings_view:SlicerSettingsView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:MaterialSettingsModel}">
+            <setings_view:MaterialSettingsView />
+        </DataTemplate>
+
+    </Window.Resources>
+    
+    <Grid>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="CategoryListBox" Grid.Column="0" SelectionMode="Single" SelectionChanged="CategoryListBox_OnSelectionChanged" >
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CommonSettings}" Image="../../images/global_settings.png" DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=Global_Settings}" />
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Visualization}" Image="../../images/visual.png"   DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=ThreeDSettings}"/>
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrinterSettings}" Image="../../images/3d_printer.png"  DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=Printer_Settings}"/>
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SlicerSettings}" Image="../../images/3d_printer.png"  DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=SelectedSlicerSettings}"/>
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.MaterialSettings}" Image="../../images/3d_printer.png"  DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=SelectedMaterialSettingsModel}"/>
+        </ListBox>
+
+        <ContentControl Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="{Binding ElementName=CategoryListBox, Path=SelectedItem.DataContext}"/>
+
+    </Grid>
+</Window>

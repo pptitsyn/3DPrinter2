@@ -1,0 +1,5 @@
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinter\WPFLocalization\bin\Release\WPFLocalization.dll
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinter\WPFLocalization\bin\Release\WPFLocalization.pdb
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinter\WPFLocalization\obj\Release\WPFLocalization.csprojResolveAssemblyReference.cache
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinter\WPFLocalization\obj\Release\WPFLocalization.dll
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinter\WPFLocalization\obj\Release\WPFLocalization.pdb

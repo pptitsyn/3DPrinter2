@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Microsoft.Win32;
+using _3DPrinter.projectManager;
+using _3DPrinter.utils;
+
+namespace _3DPrinter.setting.view
+{
+
+    /// <summary>
+    /// Interaction logic for GlobalSettingsView.xaml
+    /// </summary>
+    public partial class GlobalSettingsView : UserControl
+    {
+        public GlobalSettingsView()
+        {
+            InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                SettingsProvider.Instance.Global_Settings.Workdir = openFileDialog.FileName;
+                WorkDirTextBox.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
+        {
+
+            SettingsProvider.Instance.Global_Settings.StlFile = cb1.IsChecked.Value;
+            SettingsProvider.Instance.Global_Settings.ObjFile = cb2.IsChecked.Value;
+            SettingsProvider.Instance.Global_Settings.NcFile = cb3.IsChecked.Value;
+
+            SettingsProvider.Instance.Global_Settings.GFile = cb4.IsChecked.Value;
+            SettingsProvider.Instance.Global_Settings.GcoFile = cb5.IsChecked.Value;
+            SettingsProvider.Instance.Global_Settings.GcodeFile = cb6.IsChecked.Value;
+
+            FileAssociator.AssociateFiles();
+        }
+
+        private void ButtonBase_OnClick3(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SelectedLanguage_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ProjectManager.Instance.CurrentProject.projectSettings.GlobalSettings.Language =Localization.Instance.CurrentLanguage.Name;
+            MenuData.Instance.Load();
+        }
+    }
+
+}

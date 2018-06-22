@@ -1,0 +1,220 @@
+﻿<Window
+    
+    
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:setings_view="clr-namespace:_3DPrinter.setting.view"
+        xmlns:model="clr-namespace:_3DPrinter.setting.model"
+        xmlns:setting="clr-namespace:_3DPrinter.setting" x:Class="_3DPrinter.setting.view.PrinterMgmtWindow"
+        Title="Управление" Height="700" Width="800" Style="{StaticResource SettingWindowStyle}" WindowStartupLocation="CenterOwner" >
+
+    <!--
+    
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:menu="clr-namespace:_3DPrinter.view.menu" x:Class="_3DPrinter.setting.view.PrinterMgmtWindow"
+        Title="Window1" Height="300" Width="300">
+-->
+
+    <Window.Resources>
+
+
+
+        <!--
+
+        <DataTemplate DataType="{x:Type model:GlobalSettingsModel}">
+            <setings_view:GlobalSettingsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:ThreeDSettingsModel}">
+            <setings_view:ThreeDSettingsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:PrinterSettingsModel}">
+            <setings_view:PrinterSettingsView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:SlicerSettingsModel}">
+            <setings_view:SlicerSettingsView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type model:MaterialSettingsModel}">
+            <setings_view:MaterialSettingsView />
+        </DataTemplate>
+-->
+    </Window.Resources>
+
+    <Grid>
+
+        
+
+
+        <StackPanel Margin="20,0,20,0" Orientation="Vertical" HorizontalAlignment="Stretch">
+
+            
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="Программный код" Style="{StaticResource HeaderTextBlockStyle}"  Margin="0 0 0 0" HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <StackPanel   Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="G-код" Margin="0 0 20 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <TextBox  Name="textGCode" HorizontalAlignment="Stretch"  AcceptsReturn="True" Width="400" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Text="" />
+                <Button  Margin="20,0,20,0"  HorizontalAlignment="Right" Content="Выполнить" Click="btnRunGCode_Click"/>
+            </StackPanel>
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="Перемещение" Style="{StaticResource HeaderTextBlockStyle}"  Margin="0 0 0 0" HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="X" Margin="0 0 20 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <TextBox Name="txtCurrentXPosition"  Width="80" ></TextBox>
+                <TextBlock Text=" Y" Margin="0 0 20 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <TextBox Name="txtCurrentYPosition" Width="80" ></TextBox>
+                <TextBlock Text=" Z" Margin="0 0 20 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <TextBox Name="txtCurrentZPosition" Width="80" ></TextBox>
+                
+            </StackPanel>
+
+        
+                
+            <Grid Margin="0,20,0,0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock  Grid.Row="0" Grid.Column="0"  Text="X - направление" Margin="0 0 0 0" HorizontalAlignment="Center"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <Button Grid.Row="1" Grid.Column="0" Click="btnRightX_Click" >Плюс</Button>
+                <Button Grid.Row="2" Grid.Column="0" Click="btnLeftX_Click" >Минус</Button>
+                <Button Grid.Row="3" Grid.Column="0"  Click="btnHomeX_Click" >Начало</Button>
+
+
+                <TextBlock  Grid.Row="0" Grid.Column="1"  Text="Y - направление" Margin="0 0 0 0" HorizontalAlignment="Center"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <Button Grid.Row="1" Grid.Column="1" Click="btnTopY_Click">Плюс</Button>
+                <Button Grid.Row="2" Grid.Column="1" Click="btnBottomY_Click" >Минус</Button>
+                <Button Grid.Row="3" Grid.Column="1" Click="btnHomeY_Click">Начало</Button>
+
+                <TextBlock  Grid.Row="0" Grid.Column="2"  Text="Z - направление" Margin="0 0 0 0" HorizontalAlignment="Center"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <Button Grid.Row="1" Grid.Column="2"  Click="btnTopZ_Click">Плюс</Button>
+                <Button Grid.Row="2" Grid.Column="2" Click="btnBottomZ_Click" >Минус</Button>
+                <Button Grid.Row="3" Grid.Column="2" Click="btnHomeZ_Click">Начало</Button>
+                <Image Grid.Column="3" Grid.Row="1" Grid.RowSpan="3" Source="../../images/axis2.png" />
+            </Grid>
+
+            
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="Команды управления" Style="{StaticResource HeaderTextBlockStyle}"  Margin="0 0 0 0" HorizontalAlignment="Left" />
+            </StackPanel>
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <Button  Content="Питание" Click="btnCommandPower_Click"/>
+                <Button  Content="Остановить мотор" Click="btnCommandStopMotor_Click"/>
+                <Button  Content="Парковать" Click="btnCommandPark_Click"/>
+                <Button  Content="Исходная позиция" Click="btnCommandHome_Click"/>
+
+            </StackPanel>
+
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="Экструдер" Style="{StaticResource HeaderTextBlockStyle}"  Margin="0 0 0 0" HorizontalAlignment="Left" />
+
+            </StackPanel>
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                
+
+                <ComboBox Name="cmbExtruders" Width="200" HorizontalAlignment="Right" Margin="0,0,0,0"  />
+
+                <TextBlock Name="lblExtruderTemp"    Text="  200°C /  " Margin="0 0 0 0" HorizontalAlignment="Center"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <TextBox  Name="txtExtruderTemp"   HorizontalAlignment="Stretch"  AcceptsReturn="True" Width="50" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Text="200" VerticalAlignment="Center" TextChanged="txtExtruderTemp_TextChanged"/>
+
+                <Button  VerticalAlignment="Center" Content="Нагреть" Click="btnExtruderHeat_Click"/>
+
+
+            </StackPanel>
+
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="Стол" Style="{StaticResource HeaderTextBlockStyle}"  Margin="0 0 0 0" HorizontalAlignment="Left" />
+
+            </StackPanel>
+
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock  Text="Температура  " Margin="0 0 0 0" HorizontalAlignment="Center"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <TextBlock Name="lblBedTemp"    Text="55°C /  " Margin="0 0 0 0" HorizontalAlignment="Center"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                <TextBox  Name="txtBedTemp"   HorizontalAlignment="Stretch"  AcceptsReturn="True" Width="50" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Text="55" VerticalAlignment="Center" TextChanged="txtExtruderTemp_TextChanged"/>
+
+                <Button  VerticalAlignment="Center" Content="Нагреть" Click="btnBedHeat_Click"/>
+
+
+            </StackPanel>
+
+
+
+
+
+
+
+
+
+            <!--
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,10,0,0">
+                <TextBlock Text="Смещение в нулевую позицию по оси " Margin="0 0 0 0" HorizontalAlignment="Center"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                <Button Content="X" HorizontalAlignment="Left"  VerticalAlignment="Top" />
+                <Button Content="Y" HorizontalAlignment="Left"  VerticalAlignment="Top" />
+                <Button Content="Z" HorizontalAlignment="Left"  VerticalAlignment="Top" />
+            </StackPanel>
+            -->
+
+
+        </StackPanel>
+
+
+        <!--
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+-->
+        <!--
+        <ListBox x:Name="CategoryListBox" Grid.Column="0" SelectionMode="Single" SelectionChanged="CategoryListBox_OnSelectionChanged" >
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CommonSettings}" Image="../../images/global_settings.png" DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=Global_Settings}" />
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Visualization}" Image="../../images/visual.png"   DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=ThreeDSettings}"/>
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrinterSettings}" Image="../../images/3d_printer.png"  DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=Printer_Settings}"/>
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SlicerSettings}" Image="../../images/3d_printer.png"  DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=SelectedSlicerSettings}"/>
+            <setings_view:ListBoxItemExt Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.MaterialSettings}" Image="../../images/3d_printer.png"  DataContext="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=SelectedMaterialSettingsModel}"/>
+        </ListBox>
+-->
+        <!--
+        <ContentControl Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="{Binding ElementName=CategoryListBox, Path=SelectedItem.DataContext}"/>
+-->
+
+        <!--
+        <StackPanel Margin="20,0,20,0" Orientation="Vertical" HorizontalAlignment="Stretch">
+        <StackPanel x:Name="TextBoxGrid"  >
+            <TextBlock Text="G-Code" Margin="0 0 20 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+            <TextBox   AcceptsReturn="True" Width="400"   Text="" VerticalAlignment="Center"/>
+            <Button    HorizontalAlignment="Right" Content="Run" Click="ButtonExt_Click" />
+        </StackPanel>
+        </StackPanel>
+-->
+
+<!--
+        <Button Content="ButtonExt" HorizontalAlignment="Left" Margin="153,343,0,0" VerticalAlignment="Top" Click="ButtonExt_Click"/>
+        -->
+    </Grid>
+
+
+
+</Window>

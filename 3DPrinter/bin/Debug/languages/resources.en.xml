@@ -1,0 +1,292 @@
+﻿<LingualModel>
+  <Name>English</Name>
+  <NewProject>New project</NewProject>
+  <OpenProject>Open project</OpenProject>
+  <LoadModel>Load model</LoadModel>
+  <LoadCode>Load G-code</LoadCode>
+  <SaveProject>Save project</SaveProject>
+  <Exit>Exit</Exit>
+  <RecentFiles>Recent files</RecentFiles>
+  <Settings>Settings</Settings>
+  <About>About</About>
+  <View>View</View>
+  <ViewMode>View mode</ViewMode>
+  <FrontView>Front view</FrontView>
+  <RightView>Right view</RightView>
+  <LeftView>Left view</LeftView>
+  <BottomView>Bottom view</BottomView>
+  <TopView>Top view</TopView>
+  <BackView>Back view</BackView>
+  <ParallelProjection>Parallel projection</ParallelProjection>
+  <ShowEdges>Show edges</ShowEdges>
+  <ShowFaces>Show faces</ShowFaces>
+  <FitPrinter>Fit printer</FitPrinter>
+  <FitObjects>Fit objects</FitObjects>
+  <IsometricView>Isometric  view</IsometricView>
+  <Slicer>Slicer</Slicer>
+  <RunSlice>Run</RunSlice>
+  <ShowTravelMove>Show travel move</ShowTravelMove>
+  <ShowFilament>Show filament</ShowFilament>
+  <CorrectNormals>Correct normals</CorrectNormals>
+  <Profile>Profile</Profile>
+  <Support>Support</Support>
+  <InfillDensity>Infill density</InfillDensity>
+  <Extruders>Extruders</Extruders>
+  <DeleteModel>Delete model</DeleteModel>
+  <SaveAsSTL>Save as STL-file</SaveAsSTL>
+  <Lay>Lay</Lay>
+  <ScaleToPrinter>Scale to Maximum</ScaleToPrinter>
+  <CenterObject>Center object</CenterObject>
+  <Autoposition>Autoposition</Autoposition>
+  <Move>Move</Move>
+  <Scale>Scale</Scale>
+  <Rotate>Rotate</Rotate>
+  <Information>Information</Information>
+  <Points>Points:</Points>
+  <Edges>Edges:</Edges>
+  <Faces>Faces:</Faces>
+  <Volume>Volume:</Volume>
+  <Surface>Surface:</Surface>
+  <Size>Object size</Size>
+  <SaveGCode>Save G-code</SaveGCode>
+  <Statistic>Statistic</Statistic>
+  <ProcessTime>Process time:</ProcessTime>
+  <LayerCount>Layer count:</LayerCount>
+  <LineCount>Line count:</LineCount>
+  <FilamentLength>Filament length:</FilamentLength>
+  <Models>Models</Models>
+  <ObjectVisible>Object visible</ObjectVisible>
+  <CommonSettings>Common settings</CommonSettings>
+  <Visualization>Visualization</Visualization>
+  <PrinterSettings>Printer settings</PrinterSettings>
+  <SlicerSettings>Slicer settings</SlicerSettings>
+  <MaterialSettings>Material settings</MaterialSettings>
+  <WorkDirectory>WorkDirectory:</WorkDirectory>
+  <Overview>Overview</Overview>
+  <CurrentLanguage>Current language:</CurrentLanguage>
+  <FileAssociations>File associations</FileAssociations>
+  <Associate>Associate</Associate>
+  <Common>General</Common>
+  <Model>Model</Model>
+  <Filament>Filament</Filament>
+  <Lights>Lights</Lights>
+  <Light1>Light №1</Light1>
+  <Light2>Light №2</Light2>
+  <Light3>Light №3</Light3>
+  <Light4>Light №4</Light4>
+  <ShowCompass>Show compass</ShowCompass>
+  <ShowPrintBed>Show printbed</ShowPrintBed>
+  <BackgroundTop>Background (Top)</BackgroundTop>
+  <BackgroungBottom>Backgroung (Bottom)</BackgroungBottom>
+  <BedColor>Bed</BedColor>
+  <PrinterFrameColor>Printer frame</PrinterFrameColor>
+  <FaceColor>Face</FaceColor>
+  <InnerFaceColor>Inner faces</InnerFaceColor>
+  <CuttedFaceColor>Cut faces</CuttedFaceColor>
+  <EdgeColor>Edge</EdgeColor>
+  <SelectedObjectColor>Selected Models</SelectedObjectColor>
+  <SelectedFrameColor>Selection box</SelectedFrameColor>
+  <OuterObjectColor>Objects outside Print Bed</OuterObjectColor>
+  <ErrorObject>Model errors</ErrorObject>
+  <ErrorEdgeColor>Model errors (edge)</ErrorEdgeColor>
+  <FilamentColor>Filament</FilamentColor>
+  <HotFilamentColor>Hot filament</HotFilamentColor>
+  <SelectedFilamentColor>Selected filaments</SelectedFilamentColor>
+  <LightEnable>Enable</LightEnable>
+  <LightDirection>Direction:</LightDirection>
+  <AmbientColor>Ambient color</AmbientColor>
+  <DifusseColor>Difusse color</DifusseColor>
+  <Specular>Specular color</Specular>
+  <MaterialProfile>Material profile</MaterialProfile>
+  <Delete>Delete</Delete>
+  <FilamentDiameter>Filament diameter (mm)</FilamentDiameter>
+  <Flow>Flow (%)</Flow>
+  <PrintTemperature>Print temperature (°С)</PrintTemperature>
+  <BedTemperature>Bed temperature (°С)</BedTemperature>
+  <MaxFanSpeed>Max. fan speed (%)</MaxFanSpeed>
+  <MinFanSpeed>Min. fan speed (%)</MinFanSpeed>
+  <MinLayerTime>Minimum layer time (s)</MinLayerTime>
+
+  <PrinterProfile>Printer profile</PrinterProfile>
+  <Connection>Connection</Connection>
+  <Printer>Printer</Printer>
+  <Dimensions>Dimensions</Dimensions>
+  <Connector>Connector</Connector>
+  <Port>Port</Port>
+  <BaudRate>Baud rate</BaudRate>
+  <TransferProtocol>Transfer protocol</TransferProtocol>
+  <ResetOnEmergency>Reset on emergency</ResetOnEmergency>
+  <ReceiveCacheSize>Receive cache size</ReceiveCacheSize>
+  <SerialConnection>Serial connection</SerialConnection>
+  <VirtualPrinter>Virtual printer</VirtualPrinter>
+  <AutoDetect>Autodetect</AutoDetect>
+  <Ascii>ASCII</Ascii>
+  <ProtocolRepetier>Repetier protocol</ProtocolRepetier>
+  
+  <SendEmCommand>Send emergency command</SendEmCommand>
+  <SendEmComDTR>Send emergency command + DTR(high-low)</SendEmComDTR>
+  <SendReset>Send emergency command and reconnect</SendReset>
+  
+  <UsePingPong>Use Ping-Png communication (Send only after ok)</UsePingPong>
+  <TravelFeedRate>Travel feed rate (mm/min)</TravelFeedRate>
+  <ZAxisFeedRate>Z-Axis feed rate (mm/min)</ZAxisFeedRate>
+  <DefaultExtruderTemperature>Default extruder temperature (°С)</DefaultExtruderTemperature>
+  <DefaultHeatingBedTemerature>Default heating bed temperature (°С)</DefaultHeatingBedTemerature>
+  <ParkPosition>Park position (mm)</ParkPosition>
+  <CheckInterval>Check interval</CheckInterval>
+  <CheckExtruderAndBed>Check extruder and bed temperature</CheckExtruderAndBed>
+  <RemoveTemperatureRequests>Remove temperature requests from Log</RemoveTemperatureRequests>
+  <ParkAfterJob>Go to park after job/kill</ParkAfterJob>
+  <DisableExtruderAfterJob>Disable extruder after job/kill</DisableExtruderAfterJob>
+  <DisableHeatedBed>Disable heated bed after job/kill</DisableHeatedBed>
+  <DisableMotors>Disable motors after job/kill</DisableMotors>
+  <PrintMirror>Reflection printing</PrintMirror>
+  <PrinterType>Printer type</PrinterType>
+  <HomeCoordinate>Home coordinate</HomeCoordinate>
+  <ExtruderRange>Extruder range</ExtruderRange>
+  <Position0>Start coordinate</Position0>
+  <PrintAreaWidth>Print area width (mm)</PrintAreaWidth>
+  <PrintAreaHeight>Print area height (mm)</PrintAreaHeight>
+  <PrintAreaDepth>Print area depth (mm)</PrintAreaDepth>
+  <DumpAreaLeft>Dump area left (mm)</DumpAreaLeft>
+  <DumpAreaFront>Dump area front (mm)</DumpAreaFront>
+  <DumpAreaWidth>Dump area width (mm)</DumpAreaWidth>
+  <DumpAreaDepth>Dump area depth (m)</DumpAreaDepth>
+  <PrintableRadius>Printable radius (mm)</PrintableRadius>
+  <PrintableHeight>Printable height (mm)</PrintableHeight>
+  <CalssicPrinter>Calssic printer</CalssicPrinter>
+  <ClassicPrinterWithDump>Classic printer with dump</ClassicPrinterWithDump>
+  <CicularPrinter>Cicular printer</CicularPrinter>
+  <CNCRouter>CNC router</CNCRouter>
+  <CNCTop>Object z top position</CNCTop>
+  <Left>Left</Left>
+  <Front>Front</Front>
+  <ExtruderNumber>Number of Extruder</ExtruderNumber>
+  <ExtruderName>Name:</ExtruderName>
+  <ExtruderDiameter>Diameter (mm):</ExtruderDiameter>
+  <ExtruderColor>Color:</ExtruderColor>
+  <ExtruderOffsetX>Offset X (mm):</ExtruderOffsetX>
+  <ExtruderOffsetY>Offset Y (mm):</ExtruderOffsetY>
+  <ExtruderTemperatureOffset>Temperature offset (°С):</ExtruderTemperatureOffset>
+
+  <SlicerProfile>Slicer profile</SlicerProfile>
+  <Speed>Speed</Speed>
+  <Quality>Quality</Quality>
+  <Structures>Structures</Structures>
+  <Extrusion>Extrusion</Extrusion>
+  <GCode>G-Code</GCode>
+  <Advanced>Advanced</Advanced>
+
+  <PrintSpeed>Print (mm/s)</PrintSpeed>
+  <TravelSpeed>Travel (mm/s)</TravelSpeed>
+  <FirstLayerSpeed>First layer (mm/s)</FirstLayerSpeed>
+  <OuterPerimeterSpeed>Outer perimeter (mm/s)</OuterPerimeterSpeed>
+  <InnerPerimeterSpeed>Inner perimeter (mm/s)</InnerPerimeterSpeed>
+  <InfillSpeed>Infill (mm/с)</InfillSpeed>
+  <SkinInfillSpeed>Skin infill (mm/s)</SkinInfillSpeed>
+
+  <LayerHeight>Layer height (mm)</LayerHeight>
+  <FirstLayerHeight>First layer height (mm)</FirstLayerHeight>
+
+  <CombineEverythingA>Combine everything (Type A)</CombineEverythingA>
+  <CombineEverythingB>Combine everything (Type B)</CombineEverythingB>
+  <KeepOpenFaces>Keep Open Faces</KeepOpenFaces>
+  <ExtensiveStitching>Extensive Stitching</ExtensiveStitching>
+  
+  <Position>Position</Position>
+  <StardGCode>Stard G-code</StardGCode>
+  <EndGCode>End G-code</EndGCode>
+  <BeforeExtruderSwitch>Before extruder switch</BeforeExtruderSwitch>
+  <AfterExtruderSwitch>After extruder switch</AfterExtruderSwitch>
+  
+  <ShellThinckness>Shell thinckness (мм)</ShellThinckness>
+  <TopBottomThinckness>Top-Bottom thinckness (мм)</TopBottomThinckness>
+
+  <InfillOverlap>Infill overlap (%)</InfillOverlap>
+  <InfillPattern>Infill pattern</InfillPattern>
+  <Automatic>Automatic</Automatic>
+  <Grid>Grid</Grid>
+  <Lines>Lines</Lines>
+  <Concentric>Concentric lines</Concentric>
+  <SupportPattern>Support pattern</SupportPattern>
+  <OverhangAngle>Overhang angle (°)</OverhangAngle>
+  <DistanceXY>Distance XY (mm)</DistanceXY>
+  <DistanceZ>Distance Z (mm)</DistanceZ>
+  <SkirtLineCount>Skirt line count</SkirtLineCount>
+  <SkirtDistance>Skirt distance (mm)</SkirtDistance>
+  <GCodeFlavor>G-code Flavor</GCodeFlavor>
+
+  <RetractionSpeed>Retraction speed (mm/c)</RetractionSpeed>
+  <RetractionDistance>Retraction distance (mm)</RetractionDistance>
+  <MinTravelBeforeRetract>Min. travel before retract (mm)</MinTravelBeforeRetract>
+  <MinExtrusionBeforeRetract>Min. extrusion before retract (mm)</MinExtrusionBeforeRetract>
+  <ZHop>Z Hop (mm)</ZHop>
+  <CutOffObjectBottom>Сut off object bottom (mm)</CutOffObjectBottom>
+  <SpiralizeContour>Spiralize contour</SpiralizeContour>
+  <PerimeterBeforeInfill>Perimeter before infill</PerimeterBeforeInfill>
+  <SupportExtruder>Support extruder</SupportExtruder>
+  <RetractionOnExtruderSwitch>Retraction on extruder switch</RetractionOnExtruderSwitch>
+  <VolumeOverlap>Volume overlap</VolumeOverlap>
+  <CreateOozeShield>Create Ooze Shield</CreateOozeShield>
+  <CoolHeadLift>Cool Head Lift</CoolHeadLift>
+  
+  <Version>version 1.0</Version>
+  <Developer>Developer:</Developer>
+  <Niipm>ОАО «NIIPM»</Niipm>
+  <Address>Address:</Address>
+  <AddressNiipm>160а Leninskiy Avenue, Voronezh, 394033, Russia</AddressNiipm>
+  <Phone>Phone:</Phone>
+  <Site>Site:</Site>
+  <Fax>Fax:</Fax>
+  <CopyRight>Copyright © ОАО NIIPM, 2016-2017 All rights reserved</CopyRight>
+
+  <SaveProjectQuestion>Do you want to save current project?</SaveProjectQuestion>
+  <SaveProjectTitle>Saving</SaveProjectTitle>
+  <WarningMessageGCode>Project already contains G-code. After the model has been loaded, G-code data will be deleted. Do you want to continue?</WarningMessageGCode>
+  <WarningTitle>Attetion</WarningTitle>
+  <WarningMessageModel>Project already contains model.  After the G-code has been loaded, model data will be deleted. Do you want to continue?</WarningMessageModel>
+  <DeleteQuestion>Do you really want to delete selected model?</DeleteQuestion>
+  <DeleteTitle>Deleting</DeleteTitle>
+  
+  <Processing>Processing</Processing>
+  <Stage>Stage:</Stage>
+
+  <Connect>Connect</Connect>
+  <Disconnect>Disconnect</Disconnect>
+  <Print>Print</Print>
+  <Stop>Stop</Stop>
+  <PrintMgmt>Control</PrintMgmt>	
+  <PrintPause>Pause</PrintPause>
+  <PrintContinue>Continue printing</PrintContinue>
+  
+  <Description1>      Программный комплекс технологической подготовки трехмерных моделей к печати «PrintCAM» предназначен для анализа трехмерных моделей с целью дальнейшего формирования управляющего кода для 3D-принтера. Программный комплекс выполняет следующие функции:</Description1>
+  <Description2>     - Масштабирования трехмерной модели и ее позиционировании в области печати;</Description2>
+  <Description3>     - Формировании поддержек для нависающих элементов модели;</Description3>
+  <Description4>     - Настройки технологических параметров рабочего процесса печати;</Description4>
+  <Description5>     - Формирования управляющего кода для 3D-принтера;</Description5>
+  <Description6>     - Для управления и корректировкой рабочего процесса.</Description6>
+
+  <None>None</None>
+  <TouchingBed>Touching bed</TouchingBed>
+  <Everywhere>Everywhere</Everywhere>
+  
+  <Error>Error</Error>
+  <WorkDirectoryErrorMessage>Workdirectory in not defined</WorkDirectoryErrorMessage>
+  <OutSideErrorMessage>Some models have placed outside of printer</OutSideErrorMessage>
+  <SlicerError>Slicer is not defined</SlicerError>
+
+  <UnknownProfileName>Unknown Profile Name</UnknownProfileName>
+  <CreatePrinterConfig>Do you want to create new printer profile?</CreatePrinterConfig>
+  <CreateMaterialConfig>Do you want to create new material profile?</CreateMaterialConfig>
+  <CreateSlicerConfig>Do you want to create new slicer profile?</CreateSlicerConfig>
+
+  <WarningTitle2>Warning</WarningTitle2>
+  <RemovePrinterConfigQuestion>Do you really want to remove current printer profile?</RemovePrinterConfigQuestion>
+  <RemoveSlicerConfigQuestion>Do you really want to remove current slicer profile?</RemoveSlicerConfigQuestion>
+  <RemoveMaterialConfigQuestion>Do you really want to remove current material profile?</RemoveMaterialConfigQuestion>
+  <ForbiddenMessage>It is not possible to remove all profiles, you need to have at least one profile!</ForbiddenMessage>
+
+  <ErrorOpenProjectMessage>An error occurred during loading project file</ErrorOpenProjectMessage>
+  <ErrorAddModelMessage>An error occurred during loading model file</ErrorAddModelMessage>
+  <ErrorAddGCodeMessage>An error occurred during loading G-code file</ErrorAddGCodeMessage> 
+</LingualModel>

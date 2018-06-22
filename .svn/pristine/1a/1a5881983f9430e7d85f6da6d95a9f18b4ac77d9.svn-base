@@ -1,0 +1,535 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Net.Mime;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
+using _3DPrinter.projectManager;
+using _3DPrinter.setting;
+using _3DPrinter.setting.model;
+using Localization = _3DPrinter.setting.Localization;
+
+namespace _3DPrinter
+{
+
+    public class Record: INotifyPropertyChanged
+    {
+
+        public Record()
+        {
+            Commands = new ObservableCollection<MyCommand>();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, e);
+        }
+
+
+        public string _description;
+        public string Description
+        {
+            get { return _description; }
+            set
+            {
+                _description = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Description"));
+            }
+        }
+
+        public string _taskName;
+        public string TaskName
+        {
+            get { return _taskName; }
+            set
+            {
+                _taskName = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("TaskName"));
+            }
+        }
+
+        public string _priority;
+        public string Priority
+        {
+            get { return _priority; }
+            set
+            {
+                _priority = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Priority"));
+            }
+        }
+
+
+        public ObservableCollection<MyCommand> Commands { get; set; } 
+    }
+
+    public class MyData : ObservableCollection<Record>
+    {
+
+       
+
+        private Binding Bind(string property, object source)
+        {
+            Binding result = new Binding(property);
+            result.Source = source;
+            return result;
+        }
+
+        public MyData()
+        {
+
+            MainWindow main = Application.Current.MainWindow as MainWindow;
+
+            SupportTypeList = new List<string>() { Localization.Instance.CurrentLanguage.None, Localization.Instance.CurrentLanguage.Everywhere, Localization.Instance.CurrentLanguage.TouchingBed };
+
+            Add(new Record() { Description = "description 1", 
+                               TaskName = Localization.Instance.CurrentLanguage.View, 
+                               Priority = "1", 
+                               Commands = new ObservableCollection<MyCommand>()
+                               {
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.ViewMode, Image = "images/view_mode.png", Index = 10},
+                                   new MySeparator(),
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.FrontView, Image = "images/front.png", Index = 11},
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.LeftView, Image = "images/left.png", Index = 12},
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.RightView, Image = "images/right.png", Index = 13},
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.BottomView, Image = "images/bottom.png", Index = 14},
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.TopView, Image = "images/top.png", Index = 15},
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.BackView, Image = "images/back2.png", Index = 16},
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.IsometricView, Image = "images/iso2.png", Index = 17},
+                                   new MySeparator(),
+                                   new MyToggleCommand() {TaskName = Localization.Instance.CurrentLanguage.ParallelProjection, Image = "images/parallel.png", 
+                                       GetData = () => { return SettingsProvider.Instance.ThreeDSettings.parallelProjection; },
+                                       SetData = (bool value) =>
+                                           {
+                                               SettingsProvider.Instance.ThreeDSettings.parallelProjection = value;
+                                           }
+                                   },
+                                   new MyToggleCommand() {TaskName = Localization.Instance.CurrentLanguage.ShowEdges, Image = "images/edges.png", 
+                                       GetData = () => { return SettingsProvider.Instance.ThreeDSettings.ShowEdges; },
+                                       SetData = (bool value) =>
+                                           {
+                                               SettingsProvider.Instance.ThreeDSettings.ShowEdges = value;
+                                           }
+                                   },
+                                   new MyToggleCommand() {TaskName = Localization.Instance.CurrentLanguage.ShowFaces, Image = "images/faces2.png", 
+                                       GetData = () => { return SettingsProvider.Instance.ThreeDSettings.ShowFaces; },
+                                       SetData = (bool value) =>
+                                           {
+                                               SettingsProvider.Instance.ThreeDSettings.ShowFaces = value;
+                                           }
+                                   },
+                                   new MySeparator(),
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.FitPrinter, Image = "images/zoom_printer.png", Index = 18},
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.FitObjects, Image = "images/zoom_all_2.png", Index = 19},
+                                   new MySeparator()
+
+                               }
+            });
+
+
+
+            Add(new Record() { Description = "description 2", 
+                               TaskName = Localization.Instance.CurrentLanguage.Slicer, 
+                               Priority = "2",
+                               Commands = new ObservableCollection<MyCommand>()
+                               {
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.RunSlice, Image = "images/layers.png", Index = 21},
+                                   new MySeparator(),
+                                   new MyToggleCommand() {TaskName = Localization.Instance.CurrentLanguage.ShowTravelMove, Image = "images/lines.png", 
+                                       GetData = () => { return !SettingsProvider.Instance.ThreeDSettings.checkDisableTravelMoves; },
+                                       SetData = (bool value) =>
+                                           {
+                                               SettingsProvider.Instance.ThreeDSettings.checkDisableTravelMoves = !value;
+                                           }
+                                   },
+                                   new MyToggleCommand() {TaskName = Localization.Instance.CurrentLanguage.ShowFilament, Image = "images/filament.png", 
+                                       GetData = () => { return SettingsProvider.Instance.ThreeDSettings.comboFilamentVisualization != 0; },
+                                       SetData = (bool value) =>
+                                           {
+                                               SettingsProvider.Instance.ThreeDSettings.comboFilamentVisualization = value?1:0;
+                                           }
+                                   },
+                                   new MyToggleCommand() {TaskName = Localization.Instance.CurrentLanguage.CorrectNormals, Image = "images/normals.png", 
+                                       GetData = () => { return SettingsProvider.Instance.ThreeDSettings.CorrectNorms; },
+                                       SetData = (bool value) =>
+                                           {
+                                               SettingsProvider.Instance.ThreeDSettings.CorrectNorms = value;
+                                           }
+                                   },
+                                   new MySeparator(),
+                                   (new MyComboBoxCommand()
+                                   {
+                                       TaskName = Localization.Instance.CurrentLanguage.Profile+":", Index = 22,
+                                       GetItemSource = () =>
+                                       {
+                                           return SettingsProvider.Instance.SlicerNameList;
+                                       },
+                                       GetSelectedItemIndex = () =>
+                                       {
+                                           return SettingsProvider.Instance.SelectedSlicerSettingsIndex;
+                                       },
+
+                                    SetSelectedItemIndex = (int value) =>
+                                    {
+                                        SettingsProvider.Instance.SelectedSlicerSettingsIndex = value;
+                                    },
+
+                                    Init = (MyCommand command ) =>
+                                    {
+                                        SettingsProvider.Instance.PropertyChanged += (sender, args) =>
+                                        {
+                                            if (args.PropertyName == "SlicerNameList")
+                                            {
+                                                command.CallPropertyChanged("ItemSource");
+                                            }
+                                            else if (args.PropertyName == "SelectedSlicerSettingsIndex")
+                                            {
+                                                command.CallPropertyChanged("SelectedItemIndex");
+                                            }
+                                        };
+                                    }
+
+                                   }).Notify(),
+                                   new MySeparator(),
+                                   (new MyComboBoxCommand()
+                                   {
+                                       TaskName = Localization.Instance.CurrentLanguage.Support+":", Index = 23,
+                                       GetItemSource = () => { return SupportTypeList; },
+                                       GetSelectedItemIndex = () =>
+                                       {
+                                           return SettingsProvider.Instance.SelectedSupportTypeIndex;
+                                       },
+                                    SetSelectedItemIndex = (int value) =>
+                                    {
+                                        SettingsProvider.Instance.SelectedSupportTypeIndex = value;
+                                    },
+                                    Init = (MyCommand command ) =>
+                                    {
+                                        SettingsProvider.Instance.PropertyChanged += (sender, args) =>
+                                        {
+                                            if (args.PropertyName == "SupportTypeList")
+                                            {
+                                                command.CallPropertyChanged("ItemSource");
+                                            }
+                                            else if (args.PropertyName == "SelectedSupportTypeIndex")
+                                            {
+                                                command.CallPropertyChanged("SelectedItemIndex");
+                                            }
+                                        };
+                                    }
+                                   }).Notify(),
+                                   new MySeparator()
+
+                               }
+            });
+
+            Record record = new Record()
+            {
+                Description = "description 3",
+                TaskName = Localization.Instance.CurrentLanguage.Extruders,
+                Priority = "3",
+                Commands = new ObservableCollection<MyCommand>()
+            };
+
+
+
+            int index = 30;
+
+            foreach (ExtruderModel extruder in ProjectManager.Instance.CurrentProject.projectSettings.PrinterSettings.Extruders)
+            {
+                index++;
+                record.Commands.Add((new MyComboBoxCommand()
+                {
+                    TaskName = extruder.Name,
+                    Index = index,
+                    GetItemSource = () => { return SettingsProvider.Instance.MaterialList; },
+                    GetSelectedItemIndex = () => { return extruder.SelectedMaterialIndex; },
+                    SetSelectedItemIndex = (int value) => { extruder.SelectedMaterialIndex = value; },
+
+                    Init = (MyCommand command) =>
+                    {
+                        extruder.PropertyChanged += (sender, args) =>
+                        {
+                            if (args.PropertyName == "SelectedMaterialIndex")
+                            {
+                                command.CallPropertyChanged("SelectedItemIndex");
+                            }
+                        };
+
+                        SettingsProvider.Instance.PropertyChanged += (sender, args) =>
+                        {
+                            if (args.PropertyName == "MaterialList")
+                            {
+                                if (extruder.SelectedMaterialIndex > SettingsProvider.Instance.MaterialList.Count-1)
+                                {
+                                    extruder.SelectedMaterialIndex = 0;
+                                }
+                            }
+                        };
+                    }
+
+                }).Notify());
+            }
+            
+            Add(record);
+
+            Add(new Record() { Description = "description 4", 
+                               TaskName = Localization.Instance.CurrentLanguage.Connection, 
+                               Priority = "4",
+                               Commands = new ObservableCollection<MyCommand>()
+                               {
+                                   new MyToggleCommand2() {TaskName = Localization.Instance.CurrentLanguage.CorrectNormals, DeActiveImage = "images/disconnect.png",ActiveImage =  "images/connect.png", ActiveTaskName = Localization.Instance.CurrentLanguage.Connect, DeactiveTaskName = Localization.Instance.CurrentLanguage.Disconnect,
+                                       GetData = () => { return main.connection!= null ? main.connection.connector.IsConnected(): false; },
+                                       SetData = (bool value) =>
+                                           {
+                                               main.Connect(value);
+                                               this.OnPropertyChanged(new PropertyChangedEventArgs("Value"));
+                                           }
+                                   },
+                                   new MySeparator(),
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.Print, Image = "images/right.png", Index = 43},
+                                   new MyCommand() {TaskName = Localization.Instance.CurrentLanguage.Stop, Image = "images/top.png", Index = 44}
+                               }
+            });
+        }
+
+        public List<string> SupportTypeList { get; set; }
+
+    }
+
+    public class MyCommand : INotifyPropertyChanged
+    {
+
+
+        public MyCommand Notify()
+        {
+            if (Init != null)
+                Init(this);
+            return this;
+        }
+
+        public void CallPropertyChanged(string property)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(property));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, e);
+        }
+
+        private string _taskName;
+        public string TaskName
+        {
+            get { return _taskName; }
+            set
+            {
+                _taskName = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("TaskName"));
+            }
+        }
+
+        private string _image;
+        public string Image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Image"));
+            }
+        }
+
+        private int _index;
+        public int Index
+        {
+            get { return _index; }
+            set
+            {
+                _index = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("Index"));
+            }
+        }
+
+        public InitDelegate Init;
+
+    }
+
+
+    public delegate void SetDataDelegate(bool value);
+
+    public delegate bool GetDataDelegate();
+
+    
+
+
+    public class MySeparator : MyCommand
+    {
+
+
+    }
+
+    public class MyToggleCommand: MyCommand
+    {
+
+        public GetDataDelegate GetData;
+
+        public SetDataDelegate SetData;
+
+
+        public bool Checked
+        {
+            get
+            {
+                if (GetData != null)
+                {
+                    return (bool) GetData();
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (SetData != null)
+                {
+                    SetData(value);
+                    OnPropertyChanged(new PropertyChangedEventArgs("Value"));
+                }
+            }
+        }
+    }
+
+    public class MyToggleCommand2 : MyToggleCommand
+    {
+
+        private string _activeImage;
+        public string ActiveImage
+        {
+            get { return _activeImage; }
+            set
+            {
+                _activeImage = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("ActiveImage"));
+            }
+        }
+
+        private string _deActiveImage;
+        public string DeActiveImage
+        {
+            get { return _deActiveImage; }
+            set
+            {
+                _deActiveImage = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("DeActiveImage"));
+            }
+        }
+
+        private string _ActiveTaskName;
+
+        public string ActiveTaskName
+        {
+            get { return _ActiveTaskName; }
+            set
+            {
+                _ActiveTaskName = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("ActiveTaskName"));
+            }
+        }
+
+        private string _DeactiveTaskName;
+
+        public string DeactiveTaskName
+        {
+            get { return _DeactiveTaskName; }
+            set
+            {
+                _DeactiveTaskName = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("DeactiveTaskName"));
+            }
+        }
+
+        
+
+        public bool Checked
+        {
+            get
+            {
+                if (GetData != null)
+                {
+                    bool value =(bool)GetData();
+                    Image = value ? ActiveImage : DeActiveImage;
+
+                    TaskName = value ? ActiveTaskName : DeactiveTaskName;
+
+                    return value;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (SetData != null)
+                {
+                    SetData(value);
+                    OnPropertyChanged(new PropertyChangedEventArgs("Value"));
+                }
+            }
+        }
+
+    }
+
+    public delegate System.Collections.IEnumerable GetItemSourceDelegate();
+
+    public delegate int GetSelectedItemIndexDelegate();
+    public delegate void SetSelectedItemIndexDelegate(int value);
+
+    public delegate void InitDelegate(MyCommand command);
+
+    public class MyComboBoxCommand : MyCommand
+    {
+
+        public GetItemSourceDelegate GetItemSource;
+
+        public GetSelectedItemIndexDelegate GetSelectedItemIndex;
+        public SetSelectedItemIndexDelegate SetSelectedItemIndex;
+
+        public int SelectedItemIndex
+        {
+            get
+            {
+                if (GetSelectedItemIndex != null)
+                    return GetSelectedItemIndex();
+                return -1;
+            }
+            set
+            {
+                if (SetSelectedItemIndex != null)
+                    SetSelectedItemIndex(value);
+                OnPropertyChanged(new PropertyChangedEventArgs("SelectedItemIndex"));
+            }
+        }
+
+        public System.Collections.IEnumerable ItemSource
+        {
+            get
+            {
+                if (GetItemSource != null)
+                    return GetItemSource();
+                return null;
+            }
+        }
+
+    }
+}

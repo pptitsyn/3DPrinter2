@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{71323AEC-AFAC-4A29-9260-BCD54FAE028C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_3DPrinter</RootNamespace>
+    <AssemblyName>3DPrinter</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>big_logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>_3DPrinter.App</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK">
+      <HintPath>..\OpenTK\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.Compatibility">
+      <HintPath>..\OpenTK\OpenTK.Compatibility.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl">
+      <HintPath>..\OpenTK\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Layout.Toolkit">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WPFToolkit">
+      <HintPath>..\packages\Infragistics.Themes.MetroDark.Wpf.1.0.0\lib\net40\WPFToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="connection\CommandExecutioner.cs" />
+    <Compile Include="connection\EEPROMMarlinStorage.cs" />
+    <Compile Include="connection\EEPROMStorage.cs" />
+    <Compile Include="connection\LogLine.cs" />
+    <Compile Include="connection\PrinterConnection.cs" />
+    <Compile Include="connection\PrinterConnectorBase.cs" />
+    <Compile Include="connection\Printjob.cs" />
+    <Compile Include="connection\SerialConnector.cs" />
+    <Compile Include="connection\TemperatureEntry.cs" />
+    <Compile Include="gcode\GCode.cs" />
+    <Compile Include="model\3DSLoader.cs" />
+    <Compile Include="model\BasicConfiguration.cs" />
+    <Compile Include="model\BeltCalculator.cs" />
+    <Compile Include="model\Commands.cs" />
+    <Compile Include="model\Coordinate.cs" />
+    <Compile Include="model\Geom3D.cs" />
+    <Compile Include="model\geom\RHBoundingBox.cs" />
+    <Compile Include="model\geom\RHMatrix3.cs" />
+    <Compile Include="model\geom\RHVector3.cs" />
+    <Compile Include="model\geom\Submesh.cs" />
+    <Compile Include="model\geom\TestTopoTriangle.cs" />
+    <Compile Include="model\geom\TopoEdge.cs" />
+    <Compile Include="model\geom\TopoModel.cs" />
+    <Compile Include="model\geom\TopoPlane.cs" />
+    <Compile Include="model\geom\TopoTriangle.cs" />
+    <Compile Include="model\geom\TopoTriangleStorage.cs" />
+    <Compile Include="model\geom\TopoVertex.cs" />
+    <Compile Include="model\geom\TopoVertexStorage.cs" />
+    <Compile Include="model\ModelAnimation.cs" />
+    <Compile Include="model\PrinterModel.cs" />
+    <Compile Include="model\PrintModel.cs" />
+    <Compile Include="model\ProtectedSerialPort.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="model\PulseAnimation.cs" />
+    <Compile Include="model\RectPacker.cs" />
+    <Compile Include="model\ThreeDModel.cs" />
+    <Compile Include="model\ThreeDView.cs" />
+    <Compile Include="model\TransformArrows.cs" />
+    <Compile Include="model\TranslateArrow.cs" />
+    <Compile Include="MyData.cs" />
+    <Compile Include="projectManager\PrintCamProject.cs" />
+    <Compile Include="projectManager\ProjectManager.cs" />
+    <Compile Include="setting\LingualModel.cs" />
+    <Compile Include="setting\Localization.cs" />
+    <Compile Include="setting\MenuData.cs" />
+    <Compile Include="setting\model\CommonSettingsModel.cs" />
+    <Compile Include="setting\model\GlobalSettingsModel.cs" />
+    <Compile Include="setting\model\MaterialSettingsModel.cs" />
+    <Compile Include="setting\model\PrinterSettingsModel.cs" />
+    <Compile Include="setting\model\SettingsModel.cs" />
+    <Compile Include="setting\model\SlicerSettingsModel.cs" />
+    <Compile Include="setting\model\StatisticModel.cs" />
+    <Compile Include="setting\model\ThreeDSettingsModel.cs" />
+    <Compile Include="setting\RecentFilesSetting.cs" />
+    <Compile Include="setting\SettingsProvider.cs" />
+    <Compile Include="setting\view\GlobalSettingsView.xaml.cs">
+      <DependentUpon>GlobalSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="setting\view\MaterialSettingsView.xaml.cs">
+      <DependentUpon>MaterialSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="setting\view\PrinterSettingsView.xaml.cs">
+      <DependentUpon>PrinterSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="setting\view\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="setting\view\SlicerSettingsView.xaml.cs">
+      <DependentUpon>SlicerSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="setting\view\ThreeDSettingsView.xaml.cs">
+      <DependentUpon>ThreeDSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SingleInstance.cs" />
+    <Compile Include="slice\Slicer.cs" />
+    <Compile Include="StyleableWindow\ControlDoubleClickBehavior1.cs" />
+    <Compile Include="StyleableWindow\ShowSystemMenuBehavior1.cs" />
+    <Compile Include="StyleableWindow\SystemMenuManager1.cs" />
+    <Compile Include="StyleableWindow\WindowCloseCommand1.cs" />
+    <Compile Include="StyleableWindow\WindowDragBehavior1.cs" />
+    <Compile Include="StyleableWindow\WindowMaximizeCommand1.cs" />
+    <Compile Include="StyleableWindow\WindowMinimizeCommand1.cs" />
+    <Compile Include="StyleableWindow\WindowResizeBehavior1.cs" />
+    <Compile Include="utils\Custom.cs" />
+    <Compile Include="utils\EnglishStreamWriter.cs" />
+    <Compile Include="utils\FileAssociator.cs" />
+    <Compile Include="utils\NotifyPropertyChangedBase.cs" />
+    <Compile Include="utils\RegMemory.cs" />
+    <Compile Include="utils\XmlColor.cs" />
+    <Compile Include="view\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\controls\RangeSlicer.cs" />
+    <Compile Include="view\editor\CodeEditor.xaml.cs">
+      <DependentUpon>CodeEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\menu\ButtonExt.cs" />
+    <Compile Include="view\menu\MenuApp.xaml.cs">
+      <DependentUpon>MenuApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\notification\ThemeKeys.cs" />
+    <Compile Include="view\notification\Toaster.cs" />
+    <Compile Include="view\notification\ToasterControl.xaml.cs">
+      <DependentUpon>ToasterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\notification\ToasterWindow.xaml.cs">
+      <DependentUpon>ToasterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\notification\ToastSupport.cs" />
+    <Compile Include="view\sliceVisual\GCodeAnalyzer.cs" />
+    <Compile Include="view\sliceVisual\GCodeShort.cs" />
+    <Compile Include="view\sliceVisual\GCodeVisual.cs" />
+    <Compile Include="view\ThreeD\FrameBufferHandler.cs" />
+    <Compile Include="view\ThreeD\RHOpenGL.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="view\ThreeD\ThreedCamera.cs" />
+    <Compile Include="view\ThreeD\ThreeDControl.xaml.cs">
+      <DependentUpon>ThreeDControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="setting\view\GlobalSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="setting\view\MaterialSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="setting\view\PrinterSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="setting\view\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="setting\view\SlicerSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="setting\view\ThreeDSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\MetroDark\MetroDark.MSControls.Core.Implicit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroDark\MetroDark.MSControls.Toolkit.Implicit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroDark\Styles.Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroDark\Styles.WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\MetroDark\Theme.Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="view\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\editor\CodeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\menu\MenuApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\notification\ToasterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\notification\ToasterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\ThreeD\ThreeDControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.en.resx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\MetroDark\HowToApplyTheme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\conf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\close_black.png" />
+    <Resource Include="images\close_white.png" />
+    <Resource Include="images\configure.png" />
+    <Resource Include="images\maxim_black.png" />
+    <Resource Include="images\maxim_white.png" />
+    <Resource Include="images\menu2.png" />
+    <Resource Include="images\minim_black.png" />
+    <Resource Include="images\minim_white.png" />
+    <Resource Include="images\to_tray_black.png" />
+    <Resource Include="images\to_tray_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\config.png" />
+    <Resource Include="images\exit.png" />
+    <Resource Include="images\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\add_model.png" />
+    <Resource Include="images\open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\project.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\back.png" />
+    <Resource Include="images\bottom.png" />
+    <Resource Include="images\front.png" />
+    <Resource Include="images\left.png" />
+    <Resource Include="images\right.png" />
+    <Resource Include="images\top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\iso.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\back2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\parallel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\iso2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\place_texture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\place_texture.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\3d_printer.png" />
+    <Resource Include="images\allocation.png" />
+    <Resource Include="images\global_settings.png" />
+    <Resource Include="images\visual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\edges.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\ptr_3d.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\del_printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\zoom_all.png" />
+    <Resource Include="images\zoom_printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\faces.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\faces2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\expander_left.png" />
+    <Resource Include="images\expander_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\model.png" />
+    <Resource Include="images\model2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AurelienRibon.Ui.SyntaxHighlightBox\AurelienRibon.Ui.SyntaxHighlightBox.csproj">
+      <Project>{10a9ecd3-ae1e-494d-9a27-8a32dd581759}</Project>
+      <Name>AurelienRibon.Ui.SyntaxHighlightBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
+      <Project>{6c55b776-26d4-4db3-a6ab-87e783b2f3d1}</Project>
+      <Name>ICSharpCode.AvalonEdit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\big_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="big_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\layers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\big_logo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\save_g.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\view_mode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\lines.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\add_gcode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\filament.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\normals.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\skybox\back.jpg" />
+    <Resource Include="images\skybox\bottom.jpg" />
+    <Resource Include="images\skybox\front.jpg" />
+    <Resource Include="images\skybox\left.jpg" />
+    <Resource Include="images\skybox\right.jpg" />
+    <Resource Include="images\skybox\top.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\skyline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\skyline.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\testback.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\testtop.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\place_texture2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\place_texture3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\move.png" />
+    <Resource Include="images\rotate.png" />
+    <Resource Include="images\scale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\save_stl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\unlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\angle_90.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\delete_model.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\centre.png" />
+    <Resource Include="images\land.png" />
+    <Resource Include="images\scale_to_fit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\unvisible.png" />
+    <Resource Include="images\visible.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\allocation2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\zoom_all_2.png" />
+    <Resource Include="images\zoom_one.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\connect.png" />
+    <Resource Include="images\disconnect.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

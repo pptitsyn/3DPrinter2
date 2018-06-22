@@ -1,0 +1,279 @@
+<LingualModel>
+  <Name>Русский</Name>
+  <NewProject>Новый проект</NewProject>
+  <OpenProject>Открыть проект</OpenProject>
+  <LoadModel>Загрузить модель</LoadModel>
+  <LoadCode>Загрузить G-код</LoadCode>
+  <SaveProject>Сохранить проект</SaveProject>
+  <Exit>Выход</Exit>
+  <RecentFiles>Последние файлы</RecentFiles>
+  <Settings>Настройки</Settings>
+  <About>О программе</About>
+  <View>Вид</View>
+  <ViewMode>Режим отображения</ViewMode>
+  <FrontView>Вид спереди</FrontView>
+  <RightView>Вид справа</RightView>
+  <LeftView>Вид слева</LeftView>
+  <BottomView>Вид снизу</BottomView>
+  <TopView>Вид сверху</TopView>
+  <BackView>Вид сзади</BackView>
+  <ParallelProjection>Параллельная проекция</ParallelProjection>
+  <ShowEdges>Ребра</ShowEdges>
+  <ShowFaces>Грани</ShowFaces>
+  <FitPrinter>Область печати</FitPrinter>
+  <FitObjects>Все модели</FitObjects>
+  <IsometricView>Изометрия</IsometricView>
+  <Slicer>Слайсер</Slicer>
+  <RunSlice>Выполнить слайсинг</RunSlice>
+  <ShowTravelMove>Перемещение</ShowTravelMove>
+  <ShowFilament>Нить</ShowFilament>
+  <CorrectNormals>Карты нормалей</CorrectNormals>
+  <Profile>Профиль</Profile>
+  <Support>Поддержка</Support>
+  <Extruders>Экструдеры</Extruders>
+  <DeleteModel>Удалить модель</DeleteModel>
+  <SaveAsSTL>Сохранить объект в STL-файл</SaveAsSTL>
+  <Lay>Опустить на подложку</Lay>
+  <ScaleToPrinter>Масштабировать по области печати</ScaleToPrinter>
+  <CenterObject>Центрировать</CenterObject>
+  <Autoposition>Авторазмещение</Autoposition>
+  <Move>Переместить</Move>
+  <Scale>Масштабировать</Scale>
+  <Rotate>Повернуть</Rotate>
+  <Information>Информация</Information>
+  <Points>Точек:</Points>
+  <Edges>Ребер:</Edges>
+  <Faces>Граней:</Faces>
+  <Volume>Объем:</Volume>
+  <Surface>Проверхность:</Surface>
+  <Size>Габариты</Size>
+  <SaveGCode>Сохранить G-код</SaveGCode>
+  <Statistic>Статистика</Statistic>
+  <ProcessTime>Расчетное время:</ProcessTime>
+  <LayerCount>Количество слоев:</LayerCount>
+  <LineCount>Строк кода:</LineCount>
+  <FilamentLength>Длина прутка:</FilamentLength>
+  <Models>Модели</Models>
+  <ObjectVisible>Видимость объекта</ObjectVisible>
+  <CommonSettings>Основные настройки</CommonSettings>
+  <Visualization>Визуализация</Visualization>
+  <PrinterSettings>Настройка принтера</PrinterSettings>
+  <SlicerSettings>Настройка слайсера</SlicerSettings>
+  <MaterialSettings>Настройка материалов</MaterialSettings>
+  <WorkDirectory>Рабочая папка:</WorkDirectory>
+  <Overview>Обзор</Overview>
+  <CurrentLanguage>Текущий язык:</CurrentLanguage>
+  <FileAssociations>Привязка к типам файлов</FileAssociations>
+  <Associate>Привязать</Associate>
+  <Common>Общие</Common>
+  <Model>Модель</Model>
+  <Filament>Нить</Filament>
+  <Lights>Источники света</Lights>
+  <Light1>Источник света №1</Light1>
+  <Light2>Источник света №2</Light2>
+  <Light3>Источник света №3</Light3>
+  <Light4>Источник света №4</Light4>
+  <ShowCompass>Отображать область печати</ShowCompass>
+  <ShowPrintBed>Отображать оси координат</ShowPrintBed>
+  <BackgroundTop>Фон (верх)</BackgroundTop>
+  <BackgroungBottom>Фон (низ)</BackgroungBottom>
+  <BedColor>Подложка</BedColor>
+  <PrinterFrameColor>Рамка области печати</PrinterFrameColor>
+  <FaceColor>Грани</FaceColor>
+  <InnerFaceColor>Внутренние грани</InnerFaceColor>
+  <CuttedFaceColor>Обрезанные грани</CuttedFaceColor>
+  <EdgeColor>Ребра</EdgeColor>
+  <SelectedObjectColor>Выделенные объекты</SelectedObjectColor>
+  <SelectedFrameColor>Куб выделения объекта</SelectedFrameColor>
+  <OuterObjectColor>Объекты снаружи панели</OuterObjectColor>
+  <ErrorObject>Объекты с ошибками</ErrorObject>
+  <ErrorEdgeColor>Ребра объектов с ошибками</ErrorEdgeColor>
+  <FilamentColor>Цвет нити экструдера</FilamentColor>
+  <HotFilamentColor>Цвет горячей нити</HotFilamentColor>
+  <SelectedFilamentColor>Цвет выделенной нити</SelectedFilamentColor>
+  <LightEnable>Использовать</LightEnable>
+  <LightDirection>Направление свечения:</LightDirection>
+  <AmbientColor>Цвет рассеивания</AmbientColor>
+  <DifusseColor>Цвет диффузного отражения</DifusseColor>
+  <Specular>Цвет отражения</Specular>
+  <MaterialProfile>Профиль материала</MaterialProfile>
+  <Delete>Удалить</Delete>
+  <FilamentDiameter>Диаметр прутка (мм)</FilamentDiameter>
+  <Flow>Flow (%)</Flow>
+  <PrintTemperature>Температура печати (°С)</PrintTemperature>
+  <BedTemperature>Температура стола (°С)</BedTemperature>
+  <MaxFanSpeed>Макс. скорость вентилятора (%)</MaxFanSpeed>
+  <MinFanSpeed>Мин. скорость вентилятора (%)</MinFanSpeed>
+  <MinLayerTime>Мин. время слоя (сек)</MinLayerTime>
+  <PrinterProfile>Конфигурация принтера</PrinterProfile>
+  <Connection>Соединение</Connection>
+  <Printer>Принтер</Printer>
+  <Dimensions>Размеры</Dimensions>
+  <Connector>Тип соединения</Connector>
+  <Port>Порт</Port>
+  <BaudRate>Скорость(бод)</BaudRate>
+  <TransferProtocol>Протокол передачи</TransferProtocol>
+  <ResetOnEmergency>Cброс при аварийной остановке</ResetOnEmergency>
+  <ReceiveCacheSize>Кэш (байт)</ReceiveCacheSize>
+  <SerialConnection>Последовательное соединение</SerialConnection>
+  <VirtualPrinter>Виртуальный принтер</VirtualPrinter>
+  <AutoDetect>Автоопределение</AutoDetect>
+  <Ascii>ASCII</Ascii>
+  <ProtocolRepetier>Протокол Repetier</ProtocolRepetier>
+  <SendEmCommand>Отправить команду аварийной остановки</SendEmCommand>
+  <SendEmComDTR>Отправить команду и DTR(high-low)</SendEmComDTR>
+  <SendReset>Отправить команду аварийной остановки и перезапустить</SendReset>
+  <UsePingPong>Коммуникация типа прием-передача</UsePingPong>
+  <TravelFeedRate>Скорость перемещения (мм/мин)</TravelFeedRate>
+  <ZAxisFeedRate>Скорость по оси Z (мм/мин)</ZAxisFeedRate>
+  <DefaultExtruderTemperature>Температура экструдера (°С)</DefaultExtruderTemperature>
+  <DefaultHeatingBedTemerature>Температура подложки (°С)</DefaultHeatingBedTemerature>
+  <ParkPosition>Позиция парковки (мм)</ParkPosition>
+  <CheckInterval>Интервал проверки</CheckInterval>
+  <CheckExtruderAndBed>Контроль температуры панели и экструдера</CheckExtruderAndBed>
+  <RemoveTemperatureRequests>Удалить M105-запросы из журнала</RemoveTemperatureRequests>
+  <ParkAfterJob>Парковать после завершения</ParkAfterJob>
+  <DisableExtruderAfterJob>Отключить экструдер после завершения</DisableExtruderAfterJob>
+  <DisableHeatedBed>Отключить термопанель после завершения</DisableHeatedBed>
+  <DisableMotors>Отключить приводы после завершения</DisableMotors>
+  <PrinterType>Тип принтера</PrinterType>
+  <HomeCoordinate>Координаты начала отсчета</HomeCoordinate>
+  <ExtruderRange>Диапазон координат экструдера</ExtruderRange>
+  <Position0>Координаты начала печати</Position0>
+  <PrintAreaWidth>Ширина области печати (мм)</PrintAreaWidth>
+  <PrintAreaHeight>Высота области печати (мм)</PrintAreaHeight>
+  <PrintAreaDepth>Глубина области печати (мм)</PrintAreaDepth>
+  <DumpAreaLeft>Отступ свалки слева (мм)</DumpAreaLeft>
+  <DumpAreaFront>Отступ свалки спереди (мм)</DumpAreaFront>
+  <DumpAreaWidth>Ширина свалки (мм)</DumpAreaWidth>
+  <DumpAreaDepth>Глубина свалки (мм)</DumpAreaDepth>
+  <PrintableRadius>Радиус печати (мм)</PrintableRadius>
+  <PrintableHeight>Высота печати (мм)</PrintableHeight>
+  <CalssicPrinter>Классический принтер</CalssicPrinter>
+  <ClassicPrinterWithDump>Классический принтер (со свалкой)</ClassicPrinterWithDump>
+  <CicularPrinter>Принтер Rostock (круглый стол)</CicularPrinter>
+  <CNCRouter>CNC роутер</CNCRouter>
+  <CNCTop>Object z top position</CNCTop>
+  <Left>Слева</Left>
+  <Front>Спереди</Front>
+  <ExtruderNumber>Количество эструдеров</ExtruderNumber>
+  <ExtruderName>Наименование:</ExtruderName>
+  <ExtruderDiameter>Диаметр сопла (мм):</ExtruderDiameter>
+  <ExtruderColor>Цвет:</ExtruderColor>
+  <ExtruderOffsetX>Смещение по X (мм):</ExtruderOffsetX>
+  <ExtruderOffsetY>Смещение по Y (мм):</ExtruderOffsetY>
+  <ExtruderTemperatureOffset>Смещение температуры (°С):</ExtruderTemperatureOffset>
+  <SlicerProfile>Конфигурация слайсера</SlicerProfile>
+  <Speed>Скорость</Speed>
+  <Quality>Качество</Quality>
+  <Structures>Структуры</Structures>
+  <Extrusion>Выдавливание</Extrusion>
+  <GCode>G-коды</GCode>
+  <Advanced>Расширенные</Advanced>
+  <PrintSpeed>Печать (мм/с)</PrintSpeed>
+  <TravelSpeed>Перемещение (мм/с)</TravelSpeed>
+  <FirstLayerSpeed>Первый слой (мм/с)</FirstLayerSpeed>
+  <OuterPerimeterSpeed>Внешний периметр (мм/с)</OuterPerimeterSpeed>
+  <InnerPerimeterSpeed>Внутренний периметр (мм/с)</InnerPerimeterSpeed>
+  <InfillSpeed>Заполнение (мм/с)</InfillSpeed>
+  <SkinInfillSpeed>Стиль заполнения (мм/с)</SkinInfillSpeed>
+  <LayerHeight>Высота слоя (мм)</LayerHeight>
+  <FirstLayerHeight>Высота первого слоя (мм)</FirstLayerHeight>
+  <CombineEverythingA>Комбинировать все модели (Тип А)</CombineEverythingA>
+  <CombineEverythingB>Комбинировать все модели (Тип Б)</CombineEverythingB>
+  <KeepOpenFaces>Keep Open Faces</KeepOpenFaces>
+  <ExtensiveStitching>Extensive Stitching</ExtensiveStitching>
+
+  <Position>Позиция</Position>
+  <StardGCode>Начало G-кода</StardGCode>
+  <EndGCode>Конец G-кода</EndGCode>
+  <BeforeExtruderSwitch>Перед переключением экструдера</BeforeExtruderSwitch>
+  <AfterExtruderSwitch>После переключения экструдера</AfterExtruderSwitch>
+
+  <ShellThinckness>Толщина оболочки (мм)</ShellThinckness>
+  <InfillOverlap>Заполнение перекрытие (%)</InfillOverlap>
+  <InfillPattern>Шаблон заполнения</InfillPattern>
+  <Automatic>Автоматически</Automatic>
+  <Grid>Сетка</Grid>
+  <Lines>Линии</Lines>
+  <Concentric>Концентрические линии</Concentric>
+  <SupportPattern>Шаблон заполнения поддержки</SupportPattern>
+  <OverhangAngle>Угол навеса (°)</OverhangAngle>
+  <DistanceXY>Distance XY (мм)</DistanceXY>
+  <DistanceZ>Distance Z (мм)</DistanceZ>
+  <SkirtLineCount>Количество линий в юбке</SkirtLineCount>
+  <SkirtDistance>Ширина юбки (мм)</SkirtDistance>
+  <GCodeFlavor>G-code Flavor</GCodeFlavor>
+  
+  <RetractionSpeed>Скорость отвода (мм/c)</RetractionSpeed>
+  <RetractionDistance>Дистанция отвода (мм)</RetractionDistance>
+  <MinTravelBeforeRetract>Мин. перемещение перед отводом (мм)</MinTravelBeforeRetract>
+  <MinExtrusionBeforeRetract>Мин. экструзия перед отводом (мм)</MinExtrusionBeforeRetract>
+  <ZHop>Z Hop (мм)</ZHop>
+  <CutOffObjectBottom>Сut off Object Bottom (мм)</CutOffObjectBottom>
+  <SpiralizeContour>Spiralize Contour</SpiralizeContour>
+  <PerimeterBeforeInfill>Периметр перед заполнением</PerimeterBeforeInfill>
+  <SupportExtruder>Экструдер поддержки</SupportExtruder>
+  <RetractionOnExtruderSwitch>Переключатель отвода экструдера</RetractionOnExtruderSwitch>
+  <VolumeOverlap>Перекрытие объема</VolumeOverlap>
+  <CreateOozeShield>Create Ooze Shield</CreateOozeShield>
+  <CoolHeadLift>Cool Head Lift</CoolHeadLift>
+
+  <Version>версия 1.0</Version>
+  <Developer>Разработчик:</Developer>
+  <Niipm>ОАО «НИИПМ»</Niipm>
+  <Address>Адрес:</Address>
+  <AddressNiipm>394033, Россия, г.Воронеж, Ленинский проспект, д.160а</AddressNiipm>
+  <Phone>Телефон:</Phone>
+  <Site>Сайт:</Site>
+  <Fax>Факс:</Fax>
+  <CopyRight>Copyright © ОАО НИИПМ ВОРОНЕЖ, 2016-2017 Все права защищены</CopyRight>
+  
+  <SaveProjectQuestion>Сохранить текущий проект?</SaveProjectQuestion>
+  <SaveProjectTitle>Не сохранен текущий проект</SaveProjectTitle>
+  <WarningMessageGCode>В проект уже загружен G-Code файл. После загрузки файла модели данные файла G-кода будут удалены из проекта. Хотите продолжить?</WarningMessageGCode>
+  <WarningTitle>Внимание</WarningTitle>
+  <WarningMessageModel>В проект уже загружен файл модели. После загрузки файла с G-кодом данные файла модели будут удалены из проекта. Хотите продолжить?</WarningMessageModel>
+  <DeleteQuestion>Вы действительно хотите удалить выделенную модель?</DeleteQuestion>
+  <DeleteTitle>Удаление</DeleteTitle>
+  
+  
+  <Processing>Обработка модели</Processing>
+  <Stage>Стадия:</Stage>
+
+  <Connect>Подключиться</Connect>
+  <Disconnect>Отключиться</Disconnect>
+  <Print>Печать</Print>
+  <Stop>Стоп</Stop>
+
+  <Description1>      Программный комплекс технологической подготовки трехмерных моделей к печати «PrintCAM» предназначен для анализа трехмерных моделей с целью дальнейшего формирования управляющего кода для 3D-принтера. Программный комплекс выполняет следующие функции:</Description1>
+  <Description2>     - Масштабирования трехмерной модели и ее позиционировании в области печати;</Description2>
+  <Description3>     - Формировании поддержек для нависающих элементов модели;</Description3>
+  <Description4>     - Настройки технологических параметров рабочего процесса печати;</Description4>
+  <Description5>     - Формирования управляющего кода для 3D-принтера;</Description5>
+  <Description6>     - Для управления и корректировкой рабочего процесса.</Description6>
+
+  <None>Нет</None>
+  <TouchingBed>Точечная опора</TouchingBed>
+  <Everywhere>Сплошная опора</Everywhere>
+
+  <Error>Ошибка</Error>
+  <WorkDirectoryErrorMessage>Не установлена рабочая папка</WorkDirectoryErrorMessage>
+  <OutSideErrorMessage>Некоторые объекты выходят за пределы области печати</OutSideErrorMessage>
+  <SlicerError>Отсутствует слайсер</SlicerError>
+
+<UnknownProfileName>Неизвестное имя профиля</UnknownProfileName>
+  <CreatePrinterConfig>Создать новую конфигурацию принтера?</CreatePrinterConfig>
+<CreateMaterialConfig>Создать новый профиль материала?</CreateMaterialConfig>
+  <CreateSlicerConfig>Создать новый профиль слайсера?</CreateSlicerConfig>
+  
+  <WarningTitle2>Предупреждение</WarningTitle2>
+  <RemovePrinterConfigQuestion>Вы действительно хотите удалить текущую конфигурацию принтера?</RemovePrinterConfigQuestion>
+  <RemoveSlicerConfigQuestion>Вы действительно хотите удалить текущий профиль слайсера?</RemoveSlicerConfigQuestion>
+  <RemoveMaterialConfigQuestion>Вы действительно хотите удалить текущий профиль материал?</RemoveMaterialConfigQuestion>
+  <ForbiddenMessage>Нельзя удалить все профили, система должна иметь хотя бы один!</ForbiddenMessage>
+  
+  <ErrorOpenProjectMessage>Ошибка при открытии файла проекта</ErrorOpenProjectMessage>
+  <ErrorAddModelMessage>Ошибка при загрузке файла модели</ErrorAddModelMessage>
+  <ErrorAddGCodeMessage>Ошибка при загрузке файла G-код</ErrorAddGCodeMessage>
+</LingualModel>

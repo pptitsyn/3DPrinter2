@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Global>
+    <Workdir>C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN4\3DPrinter\bin\Debug</Workdir>
+    <Language>Русский</Language>
+    <LogEnabled>false</LogEnabled>
+    <RedGreenSwitch>false</RedGreenSwitch>
+    <DisableQualityReduction>false</DisableQualityReduction>
+    <ReduceToolbarSize>false</ReduceToolbarSize>
+    <StlFile>false</StlFile>
+    <ObjFile>false</ObjFile>
+    <GFile>false</GFile>
+    <GcoFile>false</GcoFile>
+    <GcodeFile>false</GcodeFile>
+    <NcFile>false</NcFile>
+  </Global>
+  <Common>
+    <MaxLayer>111</MaxLayer>
+    <MinLayer>1</MinLayer>
+    <LowerLayer>1</LowerLayer>
+    <HigherLayer>111</HigherLayer>
+  </Common>
+  <ThreeD>
+    <ShowEdges>false</ShowEdges>
+    <ShowFaces>true</ShowFaces>
+    <ShowCompass>true</ShowCompass>
+    <faces RGB="#008B8B" />
+    <backgroundTop RGB="#787878" />
+    <selectedFaces RGB="#FF0000" />
+    <filament RGB="#6A5ACD" />
+    <printerBase RGB="#696969" />
+    <CorrectNorms>true</CorrectNorms>
+    <showPrintbed>true</showPrintbed>
+    <enableLight4>false</enableLight4>
+    <enableLight3>false</enableLight3>
+    <enableLight2>false</enableLight2>
+    <enableLight1>true</enableLight1>
+    <edges RGB="#ADFF2F" />
+    <textWidthOverThickness>1.6</textWidthOverThickness>
+    <textLayerHeight>0.3</textLayerHeight>
+    <comboFilamentVisualization>1</comboFilamentVisualization>
+    <textDiameter>2.87</textDiameter>
+    <radioDiameter>false</radioDiameter>
+    <radioHeight>true</radioHeight>
+    <textHotFilamentLength>1000</textHotFilamentLength>
+    <hotFilament RGB="#FF0000" />
+    <checkDisableFilamentVisualization>false</checkDisableFilamentVisualization>
+    <comboDrawMethod>1</comboDrawMethod>
+    <outsidePrintbed RGB="#FF69B4" />
+    <selectedFilament RGB="#FF7F50" />
+    <filament3 RGB="#000000" Alpha="0" />
+    <filament2 RGB="#696969" />
+    <pulseOutside>true</pulseOutside>
+    <ambient1 RGB="#000000" />
+    <ambient2 RGB="#000000" />
+    <ambient3 RGB="#000000" />
+    <ambient4 RGB="#000000" />
+    <diffuse1 RGB="#CCCCCC" />
+    <specular1 RGB="#FFFFFF" />
+    <diffuse2 RGB="#BBBBBB" />
+    <specular2 RGB="#FFFFFF" />
+    <diffuse3 RGB="#CCCCCC" />
+    <specular3 RGB="#FFFFFF" />
+    <specular4 RGB="#FFFFFF" />
+    <diffuse4 RGB="#BBBBBB" />
+    <xdir4>1.7</xdir4>
+    <ydir4>-1</ydir4>
+    <zdir4>-2.5</zdir4>
+    <xdir1>-1</xdir1>
+    <xdir2>1</xdir2>
+    <xdir3>1</xdir3>
+    <ydir2>2</ydir2>
+    <ydir1>-1</ydir1>
+    <zdir1>2</zdir1>
+    <zdir2>3</zdir2>
+    <zdir3>2</zdir3>
+    <ydir3>-2</ydir3>
+    <selectionBox RGB="#FF0000" />
+    <travelMoves RGB="#7FFFD4" />
+    <checkDisableTravelMoves>true</checkDisableTravelMoves>
+    <checkCorrectNormals>true</checkCorrectNormals>
+    <parallelProjection>false</parallelProjection>
+    <errorModel RGB="#C00000" />
+    <cutFaces RGB="#9370DB" />
+    <errorModelEdge RGB="" Alpha="0" />
+    <insideFaces RGB="#00008B" />
+    <backgroundBottom RGB="#424242" />
+    <printerFrame RGB="#B4B4B4" />
+    <checkAutoenableParallelInTopView>false</checkAutoenableParallelInTopView>
+    <showCoordinate>false</showCoordinate>
+  </ThreeD>
+  <MaterialSettingsCollection>
+    <MaterialSettings>
+      <Name>PLA</Name>
+      <filamentDiameter>1750</filamentDiameter>
+      <filamentFlow>100</filamentFlow>
+      <PrintTemperature>200</PrintTemperature>
+      <BedTemperature>60</BedTemperature>
+      <fanSpeedMin>50</fanSpeedMin>
+      <fanSpeedMax>100</fanSpeedMax>
+      <minimalLayerTime>5</minimalLayerTime>
+    </MaterialSettings>
+    <MaterialSettings>
+      <Name>ABS</Name>
+      <filamentDiameter>1750</filamentDiameter>
+      <filamentFlow>100</filamentFlow>
+      <PrintTemperature>205</PrintTemperature>
+      <BedTemperature>70</BedTemperature>
+      <fanSpeedMin>50</fanSpeedMin>
+      <fanSpeedMax>100</fanSpeedMax>
+      <minimalLayerTime>5</minimalLayerTime>
+    </MaterialSettings>
+  </MaterialSettingsCollection>
+  <SlicerSettingsCollection>
+    <SlicerSettings>
+      <Name>Profile_1</Name>
+      <layerThickness>0</layerThickness>
+      <initialLayerThickness>0</initialLayerThickness>
+      <filamentDiameter>0</filamentDiameter>
+      <filamentFlow>0</filamentFlow>
+      <PrintTemperature>0</PrintTemperature>
+      <BedTemperature>0</BedTemperature>
+      <Z_travel_speed>100</Z_travel_speed>
+      <Travel_speed>4800</Travel_speed>
+      <extrusionWidth>400</extrusionWidth>
+      <layer0extrusionWidth>400</layer0extrusionWidth>
+      <insetCount>2</insetCount>
+      <infillOverlap>15</infillOverlap>
+      <initialSpeedupLayers>4</initialSpeedupLayers>
+      <initialLayerSpeed>30</initialLayerSpeed>
+      <printSpeed>50</printSpeed>
+      <infillSpeed>80</infillSpeed>
+      <skinSpeed>0</skinSpeed>
+      <inset0Speed>0</inset0Speed>
+      <insetXSpeed>0</insetXSpeed>
+      <moveSpeed>0</moveSpeed>
+      <fanSpeedMin>0</fanSpeedMin>
+      <fanSpeedMax>0</fanSpeedMax>
+      <supportAngle>0</supportAngle>
+      <supportEverywhere>0</supportEverywhere>
+      <supportLineDistance>0</supportLineDistance>
+      <supportXYDistance>0</supportXYDistance>
+      <supportZDistance>0</supportZDistance>
+      <supportExtruder>-1</supportExtruder>
+      <retractionAmount>0</retractionAmount>
+      <retractionSpeed>0</retractionSpeed>
+      <retractionMinimalDistance>0</retractionMinimalDistance>
+      <retractionAmountExtruderSwitch>0</retractionAmountExtruderSwitch>
+      <retractionZHop>0</retractionZHop>
+      <minimalExtrusionBeforeRetraction>0</minimalExtrusionBeforeRetraction>
+      <enableCombing>0</enableCombing>
+      <multiVolumeOverlap>0</multiVolumeOverlap>
+      <objectSink>0</objectSink>
+      <minimalLayerTime>0</minimalLayerTime>
+      <minimalFeedrate>0</minimalFeedrate>
+      <coolHeadLift>0</coolHeadLift>
+      <perimeterBeforeInfill>0</perimeterBeforeInfill>
+      <fixHorrible>0</fixHorrible>
+      <fanFullOnLayerNr>0</fanFullOnLayerNr>
+      <supportType>0</supportType>
+      <infillPattern>0</infillPattern>
+      <sparseInfillLineDistance>0</sparseInfillLineDistance>
+      <downSkinCount>0</downSkinCount>
+      <upSkinCount>0</upSkinCount>
+      <skirtDistance>0</skirtDistance>
+      <skirtLineCount>0</skirtLineCount>
+      <skirtMinLength>0</skirtMinLength>
+      <gcodeFlavor>0</gcodeFlavor>
+      <spiralizeMode>0</spiralizeMode>
+      <enableOozeShield>0</enableOozeShield>
+      <autoCenter>0</autoCenter>
+    </SlicerSettings>
+    <SlicerSettings>
+      <Name>Profile_2</Name>
+      <layerThickness>180</layerThickness>
+      <initialLayerThickness>270</initialLayerThickness>
+      <filamentDiameter>1750</filamentDiameter>
+      <filamentFlow>100</filamentFlow>
+      <PrintTemperature>210</PrintTemperature>
+      <BedTemperature>90</BedTemperature>
+      <Z_travel_speed>100</Z_travel_speed>
+      <Travel_speed>4800</Travel_speed>
+      <extrusionWidth>400</extrusionWidth>
+      <layer0extrusionWidth>400</layer0extrusionWidth>
+      <insetCount>2</insetCount>
+      <infillOverlap>15</infillOverlap>
+      <initialSpeedupLayers>4</initialSpeedupLayers>
+      <initialLayerSpeed>30</initialLayerSpeed>
+      <printSpeed>50</printSpeed>
+      <infillSpeed>80</infillSpeed>
+      <skinSpeed>50</skinSpeed>
+      <inset0Speed>45</inset0Speed>
+      <insetXSpeed>60</insetXSpeed>
+      <moveSpeed>150</moveSpeed>
+      <fanSpeedMin>50</fanSpeedMin>
+      <fanSpeedMax>100</fanSpeedMax>
+      <supportAngle>60</supportAngle>
+      <supportEverywhere>0</supportEverywhere>
+      <supportLineDistance>2666</supportLineDistance>
+      <supportXYDistance>700</supportXYDistance>
+      <supportZDistance>150</supportZDistance>
+      <supportExtruder>-1</supportExtruder>
+      <retractionAmount>4000</retractionAmount>
+      <retractionSpeed>40</retractionSpeed>
+      <retractionMinimalDistance>1500</retractionMinimalDistance>
+      <retractionAmountExtruderSwitch>16000</retractionAmountExtruderSwitch>
+      <retractionZHop>0</retractionZHop>
+      <minimalExtrusionBeforeRetraction>20</minimalExtrusionBeforeRetraction>
+      <enableCombing>1</enableCombing>
+      <multiVolumeOverlap>0</multiVolumeOverlap>
+      <objectSink>0</objectSink>
+      <minimalLayerTime>5</minimalLayerTime>
+      <minimalFeedrate>10</minimalFeedrate>
+      <coolHeadLift>0</coolHeadLift>
+      <perimeterBeforeInfill>1</perimeterBeforeInfill>
+      <fixHorrible>1</fixHorrible>
+      <fanFullOnLayerNr>2</fanFullOnLayerNr>
+      <supportType>0</supportType>
+      <infillPattern>0</infillPattern>
+      <sparseInfillLineDistance>800</sparseInfillLineDistance>
+      <downSkinCount>3</downSkinCount>
+      <upSkinCount>0</upSkinCount>
+      <skirtDistance>3000</skirtDistance>
+      <skirtLineCount>1</skirtLineCount>
+      <skirtMinLength>150000</skirtMinLength>
+      <gcodeFlavor>0</gcodeFlavor>
+      <spiralizeMode>0</spiralizeMode>
+      <enableOozeShield>0</enableOozeShield>
+      <autoCenter>0</autoCenter>
+      <startCode>; Default start code
+G28 ; Home extruder
+G1 Z15 F{Z_TRAVEL_SPEED}
+M107 ; Turn off fan
+G90 ; Absolute positioning
+M82 ; Extruder in absolute mode
+{IF_BED}M190 S{BED}
+; Activate all used extruder
+{IF_EXT0}M104 T0 S{TEMP0}
+G92 E0 ; Reset extruder position
+; Wait for all used extruders to reach temperature
+{IF_EXT0}M109 T0 S{TEMP0}</startCode>
+      <endCode>; Default end code
+;G1 X0 Y0 Z130 ; Get extruder out of way. Uncomment to use!
+M107 ; Turn off fan
+; Disable all extruder
+G91 ; Relative positioning
+{IF_EXT0}T0
+{IF_EXT0}G1 E-1 ; Reduce filament pressure
+M104 T0 S0
+G90 ; Absolute positioning
+G92 E0 ; Reset extruder position
+M140 S0 ; Disable heated bed
+M84 ; Turn steppers off</endCode>
+      <preSwitchExtruderCode />
+      <postSwitchExtruderCode />
+    </SlicerSettings>
+  </SlicerSettingsCollection>
+  <SelectedSlicerIndex>1</SelectedSlicerIndex>
+  <SelectedMaterialIndex>0</SelectedMaterialIndex>
+  <PrinterSettingsCollection>
+    <PrinterSettings>
+      <Name>Printer1</Name>
+      <goDisposeAfterJob>false</goDisposeAfterJob>
+      <disableHeatedBetAfterJob>false</disableHeatedBetAfterJob>
+      <disableExtruderAfterJob>false</disableExtruderAfterJob>
+      <disableMotorsAfterJob>false</disableMotorsAfterJob>
+      <defaultExtruderTemp>0</defaultExtruderTemp>
+      <defaultHeatedBedTemp>0</defaultHeatedBedTemp>
+      <runFilterEverySlice>false</runFilterEverySlice>
+      <logM105>false</logM105>
+      <xhomeMax>false</xhomeMax>
+      <yhomeMax>false</yhomeMax>
+      <zhomeMax>false</zhomeMax>
+      <printerXMax>0</printerXMax>
+      <printerXMin>0</printerXMin>
+      <printerYMin>0</printerYMin>
+      <printerYMax>0</printerYMax>
+      <printerBedLeft>0</printerBedLeft>
+      <printerBedFront>0</printerBedFront>
+      <Extruders />
+      <numExtruder>0</numExtruder>
+      <SelectedExtruder>0</SelectedExtruder>
+      <checkTemp>false</checkTemp>
+      <checkTempInterval>0</checkTempInterval>
+      <PrintAreaWidth>0</PrintAreaWidth>
+      <PrintAreaDepth>0</PrintAreaDepth>
+      <PrintAreaHeight>0</PrintAreaHeight>
+      <XMin>1</XMin>
+      <XMax>1</XMax>
+      <YMin>1</YMin>
+      <YMax>1</YMax>
+      <BedLeft>0</BedLeft>
+      <BedFront>0</BedFront>
+      <DumpAreaLeft>0</DumpAreaLeft>
+      <DumpAreaFront>0</DumpAreaFront>
+      <DumpAreaWidth>0</DumpAreaWidth>
+      <DumpAreaDepth>0</DumpAreaDepth>
+      <printerType>0</printerType>
+      <rostockHeight>0</rostockHeight>
+      <rostockRadius>0</rostockRadius>
+      <cncZTop>0</cncZTop>
+      <xhomeMode>1</xhomeMode>
+      <yhomeMode>1</yhomeMode>
+      <zhomemode>1</zhomemode>
+      <BaudRate>0</BaudRate>
+      <TransferProtocol>0</TransferProtocol>
+      <ResetConnect>0</ResetConnect>
+      <ResetEmergency>0</ResetEmergency>
+      <PingPong>false</PingPong>
+      <ReceiveCacheSize>0</ReceiveCacheSize>
+    </PrinterSettings>
+    <PrinterSettings>
+      <Name>Printer2</Name>
+      <goDisposeAfterJob>false</goDisposeAfterJob>
+      <disableHeatedBetAfterJob>false</disableHeatedBetAfterJob>
+      <disableExtruderAfterJob>false</disableExtruderAfterJob>
+      <disableMotorsAfterJob>false</disableMotorsAfterJob>
+      <defaultExtruderTemp>0</defaultExtruderTemp>
+      <defaultHeatedBedTemp>0</defaultHeatedBedTemp>
+      <runFilterEverySlice>false</runFilterEverySlice>
+      <logM105>false</logM105>
+      <xhomeMax>false</xhomeMax>
+      <yhomeMax>false</yhomeMax>
+      <zhomeMax>false</zhomeMax>
+      <printerXMax>0</printerXMax>
+      <printerXMin>0</printerXMin>
+      <printerYMin>0</printerYMin>
+      <printerYMax>0</printerYMax>
+      <printerBedLeft>0</printerBedLeft>
+      <printerBedFront>0</printerBedFront>
+      <Extruders />
+      <numExtruder>0</numExtruder>
+      <SelectedExtruder>0</SelectedExtruder>
+      <checkTemp>false</checkTemp>
+      <checkTempInterval>0</checkTempInterval>
+      <PrintAreaWidth>0</PrintAreaWidth>
+      <PrintAreaDepth>0</PrintAreaDepth>
+      <PrintAreaHeight>0</PrintAreaHeight>
+      <XMin>1</XMin>
+      <XMax>1</XMax>
+      <YMin>1</YMin>
+      <YMax>1</YMax>
+      <BedLeft>0</BedLeft>
+      <BedFront>0</BedFront>
+      <DumpAreaLeft>0</DumpAreaLeft>
+      <DumpAreaFront>0</DumpAreaFront>
+      <DumpAreaWidth>0</DumpAreaWidth>
+      <DumpAreaDepth>0</DumpAreaDepth>
+      <printerType>0</printerType>
+      <rostockHeight>0</rostockHeight>
+      <rostockRadius>0</rostockRadius>
+      <cncZTop>0</cncZTop>
+      <xhomeMode>1</xhomeMode>
+      <yhomeMode>1</yhomeMode>
+      <zhomemode>1</zhomemode>
+      <BaudRate>0</BaudRate>
+      <TransferProtocol>0</TransferProtocol>
+      <ResetConnect>0</ResetConnect>
+      <ResetEmergency>0</ResetEmergency>
+      <PingPong>false</PingPong>
+      <ReceiveCacheSize>0</ReceiveCacheSize>
+    </PrinterSettings>
+    <PrinterSettings>
+      <Name>Printer3</Name>
+      <goDisposeAfterJob>false</goDisposeAfterJob>
+      <disableHeatedBetAfterJob>false</disableHeatedBetAfterJob>
+      <disableExtruderAfterJob>false</disableExtruderAfterJob>
+      <disableMotorsAfterJob>false</disableMotorsAfterJob>
+      <defaultExtruderTemp>0</defaultExtruderTemp>
+      <defaultHeatedBedTemp>0</defaultHeatedBedTemp>
+      <runFilterEverySlice>false</runFilterEverySlice>
+      <logM105>false</logM105>
+      <xhomeMax>false</xhomeMax>
+      <yhomeMax>false</yhomeMax>
+      <zhomeMax>false</zhomeMax>
+      <printerXMax>0</printerXMax>
+      <printerXMin>0</printerXMin>
+      <printerYMin>0</printerYMin>
+      <printerYMax>0</printerYMax>
+      <printerBedLeft>0</printerBedLeft>
+      <printerBedFront>0</printerBedFront>
+      <Extruders />
+      <numExtruder>0</numExtruder>
+      <SelectedExtruder>0</SelectedExtruder>
+      <checkTemp>false</checkTemp>
+      <checkTempInterval>0</checkTempInterval>
+      <PrintAreaWidth>0</PrintAreaWidth>
+      <PrintAreaDepth>0</PrintAreaDepth>
+      <PrintAreaHeight>0</PrintAreaHeight>
+      <XMin>0</XMin>
+      <XMax>0</XMax>
+      <YMin>0</YMin>
+      <YMax>0</YMax>
+      <BedLeft>0</BedLeft>
+      <BedFront>0</BedFront>
+      <DumpAreaLeft>0</DumpAreaLeft>
+      <DumpAreaFront>0</DumpAreaFront>
+      <DumpAreaWidth>0</DumpAreaWidth>
+      <DumpAreaDepth>0</DumpAreaDepth>
+      <printerType>0</printerType>
+      <rostockHeight>0</rostockHeight>
+      <rostockRadius>0</rostockRadius>
+      <cncZTop>0</cncZTop>
+      <xhomeMode>0</xhomeMode>
+      <yhomeMode>0</yhomeMode>
+      <zhomemode>0</zhomemode>
+      <ComPortName>COM1</ComPortName>
+      <BaudRate>0</BaudRate>
+      <TransferProtocol>0</TransferProtocol>
+      <ResetConnect>0</ResetConnect>
+      <ResetEmergency>0</ResetEmergency>
+      <PingPong>false</PingPong>
+      <ReceiveCacheSize>0</ReceiveCacheSize>
+    </PrinterSettings>
+    <PrinterSettings>
+      <Name>Printer4</Name>
+      <disposeX>130</disposeX>
+      <disposeY>0</disposeY>
+      <disposeZ>0</disposeZ>
+      <goDisposeAfterJob>false</goDisposeAfterJob>
+      <disableHeatedBetAfterJob>true</disableHeatedBetAfterJob>
+      <disableExtruderAfterJob>true</disableExtruderAfterJob>
+      <disableMotorsAfterJob>true</disableMotorsAfterJob>
+      <defaultExtruderTemp>200</defaultExtruderTemp>
+      <defaultHeatedBedTemp>55</defaultHeatedBedTemp>
+      <filterPath>yourFilter #in #out</filterPath>
+      <runFilterEverySlice>false</runFilterEverySlice>
+      <logM105>false</logM105>
+      <addPrintingTime>8</addPrintingTime>
+      <xhomeMax>false</xhomeMax>
+      <yhomeMax>false</yhomeMax>
+      <zhomeMax>false</zhomeMax>
+      <printerXMax>0</printerXMax>
+      <printerXMin>0</printerXMin>
+      <printerYMin>0</printerYMin>
+      <printerYMax>0</printerYMax>
+      <printerBedLeft>0</printerBedLeft>
+      <printerBedFront>0</printerBedFront>
+      <Extruders>
+        <Extruders>
+          <Name>Экструдер №1</Name>
+          <color RGB="#DC143C" />
+          <Diameter>0.4</Diameter>
+          <OffsetX>0</OffsetX>
+          <OffsetY>0</OffsetY>
+          <OffsetTemperature>0</OffsetTemperature>
+          <SelectedMaterialIndex>1</SelectedMaterialIndex>
+        </Extruders>
+        <Extruders>
+          <Name>Экструдер №2</Name>
+          <color RGB="#8A2BE2" />
+          <Diameter>0.4</Diameter>
+          <OffsetX>0</OffsetX>
+          <OffsetY>0</OffsetY>
+          <OffsetTemperature>0</OffsetTemperature>
+          <SelectedMaterialIndex>1</SelectedMaterialIndex>
+        </Extruders>
+      </Extruders>
+      <numExtruder>2</numExtruder>
+      <SelectedExtruder>0</SelectedExtruder>
+      <travelFeedrate>4800</travelFeedrate>
+      <zAxisFeedrate>100</zAxisFeedrate>
+      <checkTemp>true</checkTemp>
+      <checkTempInterval>2</checkTempInterval>
+      <PrintAreaWidth>300</PrintAreaWidth>
+      <PrintAreaDepth>300</PrintAreaDepth>
+      <PrintAreaHeight>300</PrintAreaHeight>
+      <XMin>0</XMin>
+      <XMax>333</XMax>
+      <YMin>0</YMin>
+      <YMax>318</YMax>
+      <BedLeft>33</BedLeft>
+      <BedFront>18</BedFront>
+      <DumpAreaLeft>125</DumpAreaLeft>
+      <DumpAreaFront>0</DumpAreaFront>
+      <DumpAreaWidth>22</DumpAreaWidth>
+      <DumpAreaDepth>40</DumpAreaDepth>
+      <printerType>0</printerType>
+      <rostockHeight>300</rostockHeight>
+      <rostockRadius>135</rostockRadius>
+      <cncZTop>2</cncZTop>
+      <xhomeMode>2</xhomeMode>
+      <yhomeMode>2</yhomeMode>
+      <zhomemode>2</zhomemode>
+      <ComPortName>COM3</ComPortName>
+      <BaudRate>250000</BaudRate>
+      <TransferProtocol>0</TransferProtocol>
+      <ResetConnect>0</ResetConnect>
+      <ResetEmergency>0</ResetEmergency>
+      <PingPong>false</PingPong>
+      <ReceiveCacheSize>127</ReceiveCacheSize>
+    </PrinterSettings>
+  </PrinterSettingsCollection>
+  <SelectedPrinterIndex>3</SelectedPrinterIndex>
+  <PrintStatistic>
+    <PrintingTime>3617.7075581177955</PrintingTime>
+    <LayersCount>111</LayersCount>
+    <FilamentLength>7194</FilamentLength>
+    <LineCodeCount>28576</LineCodeCount>
+    <Volume>29,85 cm³</Volume>
+    <Surface>66,93 cm²</Surface>
+    <Edges>426</Edges>
+    <Points>144</Points>
+    <Faces>284</Faces>
+    <SizeX>20,00 mm</SizeX>
+    <SizeY>85,00 mm</SizeY>
+    <SizeZ>20,00 mm</SizeZ>
+  </PrintStatistic>
+  <RecentFiles>
+    <ProjectFiles>
+      <string>H:\030418_1.stl</string>
+      <string>D:\Work\3d_printer\3D Printer\strat\D\test4.ptc</string>
+    </ProjectFiles>
+    <Count>5</Count>
+  </RecentFiles>
+</Settings>

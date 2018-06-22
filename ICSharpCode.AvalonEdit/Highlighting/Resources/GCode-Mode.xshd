@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="G-Code" extensions=".gcode" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	<!-- The named colors 'Comment' and 'String' are used in SharpDevelop to detect if a line is inside a multiline string/comment -->
+	<Color name="Comments" foreground="LimeGreen" exampleText=";comment" />
+	<Color name="Numbers" foreground="Gainsboro" exampleText="204.859 or 4.13450"/>
+	<Color name="Commands" foreground="Tomato" exampleText="G* or M*"/>
+	<Color name="Parameters" foreground="CornflowerBlue" exampleText="X* or Y* or Z* or F* or E*" />
+	
+
+
+	<!-- This is the main ruleset. -->
+	<RuleSet>
+    
+		<!-- Digits -->
+		<Rule color="Comments" fontStyle="italic">
+      ;.*
+    </Rule>
+
+    <Rule color="Parameters" fontWeight="bold">
+      [XYZPFSRDLIJKET]
+    </Rule>
+
+    <Rule color="Commands" fontWeight="bold">
+      [GM][0-9]+
+    </Rule>
+    
+    <Rule color="Numbers">
+      [+-]?[0-9]+[\.]?[0-9]*
+    </Rule>
+
+  </RuleSet>
+  
+</SyntaxDefinition>

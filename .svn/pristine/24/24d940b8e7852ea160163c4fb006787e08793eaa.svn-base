@@ -1,0 +1,78 @@
+﻿<Window x:Class="_3DPrinter.view.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:setting="clr-namespace:_3DPrinter.setting"
+        Title="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.About}" Height="500" Width="700" Style="{StaticResource SettingWindowStyle}">
+    <Window.Resources>
+
+        <Style TargetType="{ x:Type TextBlock}" BasedOn="{StaticResource TextBlockStyle}">
+            
+        </Style>
+    </Window.Resources>
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+    
+        <Image x:Name="Logotype" Grid.RowSpan="8" Height="150" Width="150" Source="../images/big_logo2.png" Stretch="Fill" Margin="0,0,20,0" VerticalAlignment="Center" ></Image>
+
+
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock  FontSize="28" Text="PrintCAM"  Margin="0,0,0,0" Style="{StaticResource HeaderTextBlockStyle}" FontWeight="Bold"></TextBlock>
+            <TextBlock  FontSize="18" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Version}"  Margin="25,0,0,2" Style="{StaticResource HeaderTextBlockStyle}" FontWeight="Normal" VerticalAlignment="Bottom"></TextBlock>
+        </StackPanel>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CopyRight}" Margin="0,5,5,15"></TextBlock>
+
+
+        <TextBlock Grid.Column="1" Grid.Row="2"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Developer}" VerticalAlignment="Center" Foreground="#FF00AADE" Margin="0"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="2"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Niipm}" Margin="10,2,5,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="3"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Address}" VerticalAlignment="Center" Foreground="#FF00AADE"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="3"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.AddressNiipm}" Margin="10,2,5,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="4"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Phone}" VerticalAlignment="Center" Foreground="#FF00AADE"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="4"  Text="(473) 223-20-46" Margin="10,2,5,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="5"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Fax}" VerticalAlignment="Center" Foreground="#FF00AADE"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="5"  Text="(473) 223-47-43" Margin="10,2,5,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="6"  Text="E-mail:" VerticalAlignment="Center" Foreground="#FF00AADE"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="6"  Text="vrn@vniipm.ru" Margin="10,2,5,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="7"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Site}" VerticalAlignment="Center" Foreground="#FF00AADE"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="7"  Text="http://vniipm.ru" Margin="10,2,5,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="8" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Description1}" Margin="0,20,0,2" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="9"  Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Description2}" Margin="0,2,0,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="10" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Description3}" Margin="0,2,0,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="11" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Description4}" Margin="0,2,0,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="12" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Description5}" Margin="0,2,0,2" VerticalAlignment="Center"></TextBlock>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="13" Margin="0,2,0,2" Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Description6}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        
+    </Grid>
+
+</Window>

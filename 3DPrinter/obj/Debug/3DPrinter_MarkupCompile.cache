@@ -1,0 +1,20 @@
+﻿3DPrinter
+
+
+winexe
+C#
+.cs
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN4\3DPrinter\obj\Debug\
+_3DPrinter
+none
+false
+DEBUG;TRACE
+
+20-814917237
+
+104-190618891
+30-1878726957
+App.xaml;MainWindow.xaml;setting\view\GlobalSettingsView.xaml;setting\view\MaterialSettingsView.xaml;setting\view\PrinterSettingsView.xaml;setting\view\SettingsWindow.xaml;setting\view\SlicerSettingsView.xaml;setting\view\ThreeDSettingsView.xaml;setting\view\PrinterMgmtWindow.xaml;Themes\MetroDark\MetroDark.MSControls.Core.Implicit.xaml;Themes\MetroDark\MetroDark.MSControls.Toolkit.Implicit.xaml;Themes\MetroDark\Styles.Shared.xaml;Themes\MetroDark\Styles.WPF.xaml;Themes\MetroDark\Theme.Colors.xaml;view\About.xaml;view\editor\CodeEditor.xaml;view\menu\MenuApp.xaml;view\notification\ToasterControl.xaml;view\notification\ToasterWindow.xaml;view\ThreeD\ThreeDControl.xaml;
+images\logo.png
+False
+

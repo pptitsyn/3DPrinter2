@@ -1,0 +1,6 @@
+C:\Users\Dm\Downloads\opentk-master\opentk-master\Source\OpenTK\obj\Debug\OpenTK.csprojResolveAssemblyReference.cache
+C:\Users\Dm\Downloads\opentk-master\opentk-master\Source\OpenTK\obj\Debug\OpenTK.Properties.Resources.resources
+C:\Users\Dm\Downloads\opentk-master\opentk-master\Source\OpenTK\obj\Debug\OpenTK.csproj.GenerateResource.Cache
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinter\OpenTK\obj\Debug\OpenTK.csprojResolveAssemblyReference.cache
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinter\OpenTK\obj\Debug\OpenTK.Properties.Resources.resources
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinter\OpenTK\obj\Debug\OpenTK.csproj.GenerateResource.Cache

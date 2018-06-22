@@ -1,0 +1,1084 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Xml.Serialization;
+using Microsoft.Win32;
+using _3DPrinter.model;
+using _3DPrinter.utils;
+
+namespace _3DPrinter.setting.model
+{
+    public class PrinterSettingsModel : NotifyPropertyChangedBase
+    {
+
+
+
+        public PrinterSettingsModel()
+        {
+
+       //     init();
+        }
+
+        
+
+        private RegistryKey currentPrinterKey;
+        private RegistryKey programKey;
+        private RegistryKey printerKey;
+        public RegistryKey GetCurrentPrinterKey()
+        {
+            return currentPrinterKey;
+        }
+
+        public void init()
+        {
+            programKey = Custom.BaseKey; 
+            printerKey = programKey.CreateSubKey("printer");
+
+            string printerName = (string)programKey.GetValue("currentPrinter", "default");
+
+            load(printerName);
+            UpdateDimensions();
+
+        }
+
+        
+
+        public void load(string printername)
+        {
+            if (printername.Length == 0) return;
+            RegistryKey p = printerKey.CreateSubKey(printername);
+            currentPrinterKey = p;
+
+
+            travelFeedrate = (string)p.GetValue("travelFeedrate", "4800");
+            zAxisFeedrate = (string)p.GetValue("zAxisFeedrate", "70");
+            checkTemp = ((int)p.GetValue("checkTemp",  0)) == 1 ? true : false;
+            checkTempInterval = (int)p.GetValue("checkTempInterval", 0);
+            disposeX = (string)p.GetValue("disposeX", "130");
+            disposeY = (string)p.GetValue("disposeY", "0");
+            disposeZ = (string)p.GetValue("disposeZ", "0");
+            goDisposeAfterJob = 1 == (int)p.GetValue("goDisposeAfterJob", 0);
+            disableHeatedBetAfterJob = 1 == (int)p.GetValue("disableHeatedBetAfterJob",  0);
+            disableExtruderAfterJob = 1 == (int)p.GetValue("disableExtruderAfterJob",  0);
+            disableMotorsAfterJob = 1 == (int)p.GetValue("disableMotorsAfterJob", 0);
+            
+            
+            PrintAreaWidth = float.Parse((string)p.GetValue("printAreaWidth", 200));
+            PrintAreaDepth = float.Parse((string)p.GetValue("printAreaDepth", 200));
+            PrintAreaHeight = float.Parse((string)p.GetValue("printAreaHeight", 300));
+
+            bool hasDump = 1 == (int)p.GetValue("hasDumpArea", 0);
+            DumpAreaLeft = float.Parse((string)p.GetValue("dumpAreaLeft", 125));
+            DumpAreaFront = float.Parse((string)p.GetValue("dumpAreaFront", 0));
+            DumpAreaWidth = float.Parse((string)p.GetValue("dumpAreaWidth", 22));
+            DumpAreaDepth = float.Parse((string)p.GetValue("dumpAreaDepth", 40));
+
+
+            defaultExtruderTemp = (int)p.GetValue("defaultExtruderTemp", "200");
+            defaultHeatedBedTemp = (int)p.GetValue("defaultHeatedBedTemp", "55");
+            filterPath = (string)p.GetValue("filterPath", "yourFilter #in #out");
+            runFilterEverySlice = 1 == (int)p.GetValue("runFilterEverySlice",  0);
+            logM105 = 1 == (int)p.GetValue("logM105",  0);
+            addPrintingTime = (string)p.GetValue("addPrintingTime", "8");
+
+            xhomeMax = 1 == (int)p.GetValue("xhomeMax", 0);
+            yhomeMax = 1 == (int)p.GetValue("yhomeMax", 0);
+            zhomeMax = 1 == (int)p.GetValue("zhomeMax", 0);
+
+                        XMax = float.Parse((string)p.GetValue("printerXMax", "200"), CultureInfo.InvariantCulture.NumberFormat);
+                        XMin = float.Parse((string)p.GetValue("printerXMin", "0"), CultureInfo.InvariantCulture.NumberFormat);
+                        YMax = float.Parse((string)p.GetValue("printerYMax", "200"), CultureInfo.InvariantCulture.NumberFormat);
+                        YMin = float.Parse((string)p.GetValue("printerYMin", "0"), CultureInfo.InvariantCulture.NumberFormat);
+                        BedLeft = float.Parse((string)p.GetValue("printerBedLeft", "0"), CultureInfo.InvariantCulture.NumberFormat);
+                        BedFront = float.Parse((string)p.GetValue("printerBedFront", "0"), CultureInfo.InvariantCulture.NumberFormat);
+
+
+                        numExtruder = (int)p.GetValue("numExtruder", 1);
+
+
+            rostockHeight = float.Parse((string)p.GetValue("rostockHeight", 340));
+            rostockRadius = float.Parse((string)p.GetValue("rostockRadius", 135));
+            cncZTop = float.Parse((string)p.GetValue("cncZTop", 0));
+        }
+
+
+        private string _name;
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+
+        private string _disposeX;
+
+        public string disposeX
+        {
+            get { return _disposeX; }
+            set
+            {
+                _disposeX = value;
+                OnPropertyChanged("disposeX");
+            }
+        }
+
+        private string _disposeY;
+
+        public string disposeY
+        {
+            get { return _disposeY; }
+            set
+            {
+                _disposeY = value;
+                OnPropertyChanged("disposeY");
+                
+            }
+        }
+
+        private string _disposeZ;
+
+        public string disposeZ
+        {
+            get { return _disposeZ; }
+            set
+            {
+                _disposeZ = value;
+                OnPropertyChanged("disposeZ");
+                
+            }
+        }
+
+        private bool _goDisposeAfterJob;
+
+        public bool goDisposeAfterJob
+        {
+            get { return _goDisposeAfterJob; }
+            set
+            {
+                _goDisposeAfterJob = value;
+                OnPropertyChanged("goDisposeAfterJob");
+                
+            }
+        }
+
+
+        private bool _disableHeatedBetAfterJob;
+
+        public bool disableHeatedBetAfterJob
+        {
+            get { return _disableHeatedBetAfterJob; }
+            set
+            {
+                _disableHeatedBetAfterJob = value;
+                OnPropertyChanged("disableHeatedBetAfterJob");
+                
+            }
+        }
+
+        private bool _disableExtruderAfterJob;
+
+        public bool disableExtruderAfterJob
+        {
+            get { return _disableExtruderAfterJob; }
+            set
+            {
+                _disableExtruderAfterJob = value;
+                OnPropertyChanged("disableExtruderAfterJob");
+                
+            }
+        }
+
+        private bool _disableMotorsAfterJob;
+
+        public bool disableMotorsAfterJob
+        {
+            get { return _disableMotorsAfterJob; }
+            set
+            {
+                _disableMotorsAfterJob = value;
+                OnPropertyChanged("disableMotorsAfterJob");
+                
+            }
+        }
+
+        private bool _printMirror;
+
+        public bool printMirror
+        {
+            get { return _printMirror; }
+            set
+            {
+                _printMirror = value;
+                OnPropertyChanged("printMirror");
+
+            }
+        }
+
+        
+
+        private int _defaultExtruderTemp;
+
+        public int defaultExtruderTemp
+        {
+            get { return _defaultExtruderTemp; }
+            set
+            {
+                _defaultExtruderTemp = value;
+                OnPropertyChanged("defaultExtruderTemp");
+                
+            }
+        }
+
+        private int _defaultHeatedBedTemp;
+
+        public int defaultHeatedBedTemp
+        {
+            get { return _defaultHeatedBedTemp; }
+            set
+            {
+                _defaultHeatedBedTemp = value;
+                OnPropertyChanged("defaultHeatedBedTemp");
+                
+            }
+        }
+
+        private string _filterPath;
+
+        public string filterPath
+        {
+            get { return _filterPath; }
+            set
+            {
+                _filterPath = value;
+                OnPropertyChanged("filterPath");
+                
+            }
+        }
+
+        private bool _runFilterEverySlice;
+
+        public bool runFilterEverySlice
+        {
+            get { return _runFilterEverySlice; }
+            set
+            {
+                _runFilterEverySlice = value;
+                OnPropertyChanged("runFilterEverySlice");
+                
+            }
+        }
+
+        private bool _logM105;
+
+        public bool logM105
+        {
+            get { return _logM105; }
+            set
+            {
+                _logM105 = value;
+                OnPropertyChanged("logM105");
+                
+            }
+        }
+
+        private string _addPrintingTime;
+
+        public string addPrintingTime
+        {
+            get { return _addPrintingTime; }
+            set
+            {
+                _addPrintingTime = value;
+                OnPropertyChanged("addPrintingTime");
+                
+            }
+        }
+
+        private bool _xhomeMax;
+
+        public bool xhomeMax
+        {
+            get { return _xhomeMax; }
+            set
+            {
+                _xhomeMax = value;
+                OnPropertyChanged("xhomeMax");
+                
+            }
+        }
+
+        private bool _yhomeMax;
+
+        public bool yhomeMax
+        {
+            get { return _yhomeMax; }
+            set
+            {
+                _yhomeMax = value;
+                OnPropertyChanged("yhomeMax");
+                
+            }
+        }
+
+        private bool _zhomeMax;
+
+        public bool zhomeMax
+        {
+            get { return _zhomeMax; }
+            set
+            {
+                _zhomeMax = value;
+                OnPropertyChanged("zhomeMax");
+                
+            }
+        }
+
+        private float _printerXMax;
+
+        public float printerXMax
+        {
+            get { return _printerXMax; }
+            set
+            {
+                _printerXMax = value;
+                OnPropertyChanged("printerXMax");
+                
+            }
+        }
+
+        private float _printerXMin;
+
+        public float printerXMin
+        {
+            get { return _printerXMin; }
+            set
+            {
+                _printerXMin = value;
+                OnPropertyChanged("printerXMin");
+                
+            }
+        }
+
+        private float _printerYMin;
+
+        public float printerYMin
+        {
+            get { return _printerYMin; }
+            set
+            {
+                _printerYMin = value;
+                OnPropertyChanged("printerYMin");
+                
+            }
+        }
+
+        private float _printerYMax;
+
+        public float printerYMax
+        {
+            get { return _printerYMax; }
+            set
+            {
+                _printerYMax = value;
+                OnPropertyChanged("printerYMax");
+                
+            }
+        }
+
+        private float _printerBedLeft;
+
+        public float printerBedLeft
+        {
+            get { return _printerBedLeft; }
+            set
+            {
+                _printerBedLeft = value;
+                OnPropertyChanged("printerBedLeft");
+                
+            }
+        }
+
+        private float _printerBedFront;
+
+        public float printerBedFront
+        {
+            get { return _printerBedFront; }
+            set
+            {
+                _printerBedFront = value;
+                OnPropertyChanged("printerBedFront");
+                
+            }
+        }
+        private void ChangeExtruderNumber()
+        {
+            if (numExtruder > Extruders.Count)
+            {
+                int substract = numExtruder - Extruders.Count;
+
+                for (int i = 0; i < substract; i++)
+                {
+                    Extruders.Add(new ExtruderModel() { Name = "Экструдер " + (Extruders.Count +i+1) });
+                }
+            }
+            else if (numExtruder < Extruders.Count)
+            {
+                int substract = Extruders.Count - numExtruder;
+
+                for (int i = 0; i < substract; i++)
+                {
+                    Extruders.Remove(Extruders[Extruders.Count - 1]);
+                }
+            }
+        }
+
+        private ObservableCollection<ExtruderModel> _Extruders = new ObservableCollection<ExtruderModel>();
+
+        [XmlArray("Extruders"), XmlArrayItem(typeof(ExtruderModel), ElementName = "Extruders")]
+        public ObservableCollection<ExtruderModel> Extruders
+        {
+            get { return _Extruders; }
+            set
+            {
+                _Extruders = value;
+                OnPropertyChanged("Extruders");
+            }
+        }
+
+        private int _numExtruder;
+
+        public int numExtruder
+        {
+            get { return _numExtruder; }
+            set
+            {
+                _numExtruder = value;
+                OnPropertyChanged("numExtruder");
+                ChangeExtruderNumber();
+            }
+        }
+
+
+
+
+        private int _SelectedExtruder = 0;
+
+        public int SelectedExtruder
+        {
+            get { return _SelectedExtruder; }
+            set
+            {
+                _SelectedExtruder = value;
+                OnPropertyChanged("SelectedExtruder");
+            }
+        }
+
+        private string _travelFeedrate;
+
+        public string travelFeedrate
+        {
+            get { return _travelFeedrate; }
+            set
+            {
+                _travelFeedrate = value;
+                OnPropertyChanged("travelFeedrate");
+                
+            }
+        }
+
+        private string _zAxisFeedrate;
+
+        public string zAxisFeedrate
+        {
+            get { return _zAxisFeedrate; }
+            set
+            {
+                _zAxisFeedrate = value;
+                OnPropertyChanged("zAxisFeedrate");
+                
+            }
+        }
+
+        private bool _checkTemp;
+
+        public bool checkTemp
+        {
+            get { return _checkTemp; }
+            set
+            {
+                _checkTemp = value;
+                OnPropertyChanged("checkTemp");
+                
+            }
+        }
+
+        private int _checkTempInterval;
+
+        public int checkTempInterval
+        {
+            get { return _checkTempInterval; }
+            set
+            {
+                _checkTempInterval = value;
+                OnPropertyChanged("checkTempInterval");
+                
+            }
+        }
+
+        
+        
+        
+        public void UpdateDimensions()
+        {
+
+            /*
+            printerType = comboBoxPrinterType.SelectedIndex;
+            float.TryParse(textPrintAreaWidth.Text, NumberStyles.Float, GCode.format, out PrintAreaWidth);
+            float.TryParse(textPrintAreaHeight.Text, NumberStyles.Float, GCode.format, out PrintAreaHeight);
+            float.TryParse(textPrintAreaDepth.Text, NumberStyles.Float, GCode.format, out PrintAreaDepth);
+            float.TryParse(textDumpAreaDepth.Text, NumberStyles.Float, GCode.format, out DumpAreaDepth);
+            float.TryParse(textDumpAreaWidth.Text, NumberStyles.Float, GCode.format, out DumpAreaWidth);
+            float.TryParse(textDumpAreaLeft.Text, NumberStyles.Float, GCode.format, out DumpAreaLeft);
+            float.TryParse(textDumpAreaFront.Text, NumberStyles.Float, GCode.format, out DumpAreaFront);
+            float.TryParse(textPrinterXMin.Text, NumberStyles.Float, GCode.format, out XMin);
+            float.TryParse(textPrinterXMax.Text, NumberStyles.Float, GCode.format, out XMax);
+            float.TryParse(textPrinterYMin.Text, NumberStyles.Float, GCode.format, out YMin);
+            float.TryParse(textPrinterYMax.Text, NumberStyles.Float, GCode.format, out YMax);
+            float.TryParse(textBedLeft.Text, NumberStyles.Float, GCode.format, out BedLeft);
+            float.TryParse(textBedFront.Text, NumberStyles.Float, GCode.format, out BedFront);
+            float.TryParse(textBoxRostockHeight.Text, NumberStyles.Float, GCode.format, out rostockHeight);
+            float.TryParse(textBoxRostockRadius.Text, NumberStyles.Float, GCode.format, out rostockRadius);
+            float.TryParse(textCNCZTop.Text, NumberStyles.Float, GCode.format, out cncZTop);
+            */
+
+            //HasDumpArea = printerType == 1;
+            if (printerType == 2)
+            {
+                PrintAreaHeight = rostockHeight;
+                PrintAreaWidth = PrintAreaDepth = 2 * rostockRadius;
+                BedFront = BedLeft = -rostockRadius;
+                XMin = YMin = -rostockRadius;
+                XMax = YMax = rostockRadius;
+
+            }
+        }
+
+
+        public bool PointInside(float x, float y, float z)
+        {
+            if (z < -0.001 || z > PrintAreaHeight) return false;
+            if (printerType < 2)
+            {
+                if (x < BedLeft || x > BedLeft + PrintAreaWidth) return false;
+                if (y < BedFront || y > BedFront + PrintAreaDepth) return false;
+            }
+            else
+            {
+                float d = (float)Math.Sqrt(x * x + y * y);
+                return d <= rostockRadius;
+            }
+            return true;
+        }
+
+
+
+        [XmlIgnore]
+        private float _printAreaWidth;
+
+        [XmlElement("PrintAreaWidth")]
+        public float PrintAreaWidth
+        {
+            get { return _printAreaWidth; }
+            set
+            {
+                _printAreaWidth = value;
+                OnPropertyChanged("PrintAreaWidth");
+            }
+        }
+
+        [XmlIgnore]
+        private float _printAreaDepth;
+
+        [XmlElement("PrintAreaDepth")]
+        public float PrintAreaDepth
+        {
+            get { return _printAreaDepth; }
+            set
+            {
+                _printAreaDepth = value;
+                OnPropertyChanged("PrintAreaDepth");
+            }
+        }
+
+        [XmlIgnore]
+        private float _printAreaHeight;
+
+        [XmlElement("PrintAreaHeight")]
+        public float PrintAreaHeight
+        {
+            get { return _printAreaHeight; }
+            set
+            {
+                _printAreaHeight = value;
+                OnPropertyChanged("PrintAreaHeight");
+            }
+        }
+
+        [XmlIgnore]
+        private float _XMin, _XMax, _YMin, _YMax, _BedLeft, _BedFront;
+
+        [XmlElement("XMin")]
+        public float XMin
+        {
+            get { return _XMin; }
+            set
+            {
+                _XMin = value;
+                OnPropertyChanged("XMin");
+            }
+        }
+
+        [XmlElement("XMax")]
+        public float XMax
+        {
+            get { return _XMax; }
+            set
+            {
+                _XMax = value;
+                OnPropertyChanged("XMax");
+            }
+        }
+
+        [XmlElement("YMin")]
+        public float YMin
+        {
+            get { return _YMin; }
+            set
+            {
+                _YMin = value;
+                OnPropertyChanged("YMin");
+            }
+        }
+
+        [XmlElement("YMax")]
+        public float YMax
+        {
+            get { return _YMax; }
+            set
+            {
+                _YMax = value;
+                OnPropertyChanged("YMax");
+            }
+        }
+
+        [XmlElement("BedLeft")]
+        public float BedLeft
+        {
+            get { return _BedLeft; }
+            set
+            {
+                _BedLeft = value;
+                OnPropertyChanged("BedLeft");
+            }
+        }
+
+        [XmlElement("BedFront")]
+        public float BedFront
+        {
+            get { return _BedFront; }
+            set
+            {
+                _BedFront = value;
+                OnPropertyChanged("BedFront");
+            }
+        }
+
+        [XmlIgnore]
+        private float _dumpAreaLeft;
+
+        [XmlElement("DumpAreaLeft")]
+        public float DumpAreaLeft
+        {
+            get { return _dumpAreaLeft; }
+            set
+            {
+                _dumpAreaLeft = value;
+                OnPropertyChanged("DumpAreaLeft");
+            }
+        }
+
+        [XmlIgnore]
+        private float _dumpAreaFront;
+        [XmlElement("DumpAreaFront")]
+        public float DumpAreaFront
+        {
+            get { return _dumpAreaFront; }
+            set
+            {
+                _dumpAreaFront = value;
+                OnPropertyChanged("DumpAreaFront");
+            }
+        }
+
+        [XmlIgnore]
+        private float _dumpAreaWidth;
+        [XmlElement("DumpAreaWidth")]
+        public float DumpAreaWidth
+        {
+            get { return _dumpAreaWidth; }
+            set
+            {
+                _dumpAreaWidth = value;
+                OnPropertyChanged("DumpAreaWidth");
+            }
+        }
+
+        [XmlIgnore]
+        private float _dumpAreaDepth;
+        [XmlElement("DumpAreaDepth")]
+        public float DumpAreaDepth
+        {
+            get { return _dumpAreaDepth; }
+            set
+            {
+                _dumpAreaDepth = value;
+                OnPropertyChanged("DumpAreaDepth");
+            }
+        }
+
+        [XmlIgnore]
+        private int _printerType;
+        [XmlElement("printerType")]
+        public int printerType
+        {
+            get { return _printerType; }
+            set
+            {
+                _printerType = value;
+                OnPropertyChanged("printerType");
+            }
+        }
+
+        [XmlIgnore]
+        private float _rostockHeight;
+        [XmlElement("rostockHeight")]
+        public float rostockHeight
+        {
+            get { return _rostockHeight; }
+            set
+            {
+                _rostockHeight = value;
+                OnPropertyChanged("rostockHeight");
+            }
+        }
+
+        [XmlIgnore]
+        private float _rostockRadius;
+        [XmlElement("rostockRadius")]
+        public float rostockRadius
+        {
+            get { return _rostockRadius; }
+            set
+            {
+                _rostockRadius = value;
+                OnPropertyChanged("rostockRadius");
+            }
+        }
+
+        [XmlIgnore]
+        private float _cncZTop;
+        [XmlElement("cncZTop")]
+        public float cncZTop
+        {
+            get { return _cncZTop; }
+            set
+            {
+                _cncZTop = value;
+                OnPropertyChanged("cncZTop");
+            }
+        }
+
+
+
+
+        [XmlIgnore]
+        private int _xhomeMode = 0, _yhomeMode = 0, _zhomemode = 0;
+        [XmlElement("xhomeMode")]
+        public int xhomeMode
+        {
+            get { return _xhomeMode; }
+            set
+            {
+                _xhomeMode = value;
+                OnPropertyChanged("xhomeMode");
+            }
+        }
+
+        [XmlElement("yhomeMode")]
+        public int yhomeMode
+        {
+            get { return _yhomeMode; }
+            set
+            {
+                _yhomeMode = value;
+                OnPropertyChanged("yhomeMode");
+            }
+        }
+
+        [XmlElement("zhomemode")]
+        public int zhomemode
+        {
+            get { return _zhomemode; }
+            set
+            {
+                _zhomemode = value;
+                OnPropertyChanged("zhomemode");
+            }
+        }
+
+        [XmlIgnore]
+        private UserControl connectorPanel = null;
+
+        [XmlIgnore]
+        public float XHomePos
+        {
+            get
+            {
+                switch (xhomeMode)
+                {
+                    case 0: return XMin;
+                    case 1: return XMax;
+                    case 2: return 0;
+                }
+                return 0;
+            }
+        }
+
+        [XmlIgnore]
+        public float YHomePos
+        {
+            get
+            {
+                switch (yhomeMode)
+                {
+                    case 0: return YMin;
+                    case 1: return YMax;
+                    case 2: return 0;
+                }
+                return 0;
+            }
+        }
+     
+        [XmlIgnore]
+        public float ZHomePos
+        {
+            get
+            {
+                switch (zhomemode)
+                {
+                    case 0: return 0;
+                    case 1: return PrintAreaHeight;
+                    case 2: return 0;
+                }
+                return 0;
+            }
+        }
+
+        private string _ComPortName;
+
+        public string ComPortName
+        {
+            get { return _ComPortName; }
+            set
+            {
+                _ComPortName = value;
+                OnPropertyChanged("ComPortName");
+            }
+        }
+
+        private int _BaudRate;
+
+        public int BaudRate
+        {
+            get { return _BaudRate; }
+            set
+            {
+                _BaudRate = value;
+                OnPropertyChanged("BaudRate");
+            }
+        }
+
+        private int _TransferProtocol;
+
+        public int TransferProtocol
+        {
+            get { return _TransferProtocol; }
+            set
+            {
+                _TransferProtocol = value;
+                OnPropertyChanged("TransferProtocol");
+            }
+        }
+
+        private int _ResetConnect;
+
+        public int ResetConnect
+        {
+            get { return _ResetConnect; }
+            set
+            {
+                _ResetConnect = value;
+                OnPropertyChanged("ResetConnect");
+            }
+        }
+
+        private int _ResetEmergency;
+
+        public int ResetEmergency
+        {
+            get { return _ResetEmergency; }
+            set
+            {
+                _ResetEmergency = value;
+                OnPropertyChanged("ResetEmergency");
+            }
+        }
+
+        private bool _PingPong;
+
+        public bool PingPong
+        {
+            get { return _PingPong; }
+            set
+            {
+                _PingPong = value;
+                OnPropertyChanged("PingPong");
+            }
+        }
+
+        private int _ReceiveCacheSize = 127; // by default
+
+        public int ReceiveCacheSize
+        {
+            get { return _ReceiveCacheSize; }
+            set
+            {
+                _ReceiveCacheSize = value;
+                OnPropertyChanged("ReceiveCacheSize");
+            }
+        }
+
+        
+        
+
+        
+
+    }
+
+    public class ExtruderModel : NotifyPropertyChangedBase
+    {
+
+        private string _Name;
+        [XmlElement("Name")]
+        public string Name
+        {
+            get { return _Name; }
+            set
+            {
+                _Name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+        private Color _ExtruderColor;
+        [XmlElement("color", Type = typeof(XmlColor))]
+        public Color ExtruderColor
+        {
+            get { return _ExtruderColor; }
+            set
+            {
+                _ExtruderColor = value;
+                OnPropertyChanged("ExtruderColor");
+            }
+        }
+
+        private float _Diameter = 0.4f;
+        [XmlElement("Diameter")]
+        public float Diameter
+        {
+            get { return _Diameter; }
+            set
+            {
+                _Diameter = value;
+                OnPropertyChanged("Diameter");
+            }
+        }
+
+
+        private float _offsetX = 0.0f;
+        [XmlElement("OffsetX")]
+        public float OffsetX
+        {
+            get { return _offsetX; }
+            set
+            {
+                _offsetX = value;
+                OnPropertyChanged("OffsetX");
+            }
+        }
+
+
+        private float _offsetY = 0.0f;
+        [XmlElement("OffsetY")]
+        public float OffsetY
+        {
+            get { return _offsetY; }
+            set
+            {
+                _offsetY = value;
+                OnPropertyChanged("OffsetY");
+            }
+        }
+
+        private int _offsetTemperature;
+
+        public int OffsetTemperature
+        {
+            get { return _offsetTemperature; }
+            set
+            {
+                _offsetTemperature = value;
+                OnPropertyChanged("OffsetTemperature");
+            }
+        }
+
+
+        private int _SelectedMaterialIndex = 0;
+        public int SelectedMaterialIndex
+        {
+            get { return _SelectedMaterialIndex; }
+            set
+            {
+                _SelectedMaterialIndex = value;
+                OnPropertyChanged("SelectedMaterialIndex");
+            }
+        }
+
+
+
+
+
+        
+    }
+}

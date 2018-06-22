@@ -1,0 +1,15 @@
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\bin\Release\ICSharpCode.AvalonEdit.xml
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\bin\Release\ICSharpCode.AvalonEdit.dll
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\bin\Release\ICSharpCode.AvalonEdit.pdb
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\ICSharpCode.AvalonEdit_MarkupCompile.cache
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\ICSharpCode.AvalonEdit_MarkupCompile.lref
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\CodeCompletion\CompletionList.baml
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\CodeCompletion\InsightWindow.baml
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\Search\SearchPanel.baml
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\Search\DropDownButton.baml
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\TextEditor.baml
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\themes\generic.baml
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\ICSharpCode.AvalonEdit.g.resources
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\ICSharpCode.AvalonEdit.dll
+C:\Users\Dm\Documents\Visual Studio 2013\Projects\3DPrinterSVN3\3DPrinterSVN\ICSharpCode.AvalonEdit\obj\Release\ICSharpCode.AvalonEdit.pdb

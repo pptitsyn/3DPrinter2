@@ -1,0 +1,441 @@
+﻿<UserControl x:Class="_3DPrinter.setting.view.PrinterSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
+             xmlns:setting="clr-namespace:_3DPrinter.setting"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:view="clr-namespace:_3DPrinter.setting.view"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="500">
+
+    <UserControl.Resources>
+        <view:MColorToDColorConverter x:Key="MColor_To_DColor" />
+    </UserControl.Resources>
+
+    <!--
+    <StackPanel x:Name="AccordionGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="20,0,20,20">
+-->
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Margin="20,0,20,20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrinterProfile}" Margin="0,21,0,20" Grid.Row="1" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+        <StackPanel Orientation="Horizontal"  Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right">
+            
+            <ComboBox x:Name="printerComboBox" Width="250" HorizontalAlignment="Right" Margin="0,15,0,15" IsEditable="True" KeyUp="UIElement_OnKeyUp" SelectedIndex="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettingsIndex}" ItemsSource="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=OneWay, Path=PrinterNameList}" />
+            <Button Margin="0,15,0,15" HorizontalAlignment="Right" Click="ButtonBase_OnClick" ToolTip="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Delete}" >
+                <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="../../images/del_printer.png" Height="20" Width="20" Stretch="Fill" />
+            </Button>
+        </StackPanel>
+
+        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrinterSettings}" Margin="0 0 0 20" HorizontalAlignment="Left" Style="{StaticResource HeaderTextBlockStyle}" />
+        <controls:Accordion HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Padding="0" Grid.ColumnSpan="2">
+            <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Connection}" >
+                <Grid HorizontalAlignment="Stretch" Margin="15,7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Connector}" Margin="0 0 20 0" Grid.Row="0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Port}" Margin="0 0 20 0" Grid.Row="1" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.BaudRate}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.TransferProtocol}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ResetOnEmergency}" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ReceiveCacheSize}" Margin="0 0 20 0" Grid.Row="5" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+
+                    <ComboBox Width="250" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1"  Margin="0,5,0,5" SelectedIndex="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.printerType}" >
+                        <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SerialConnection}" />
+                        <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.VirtualPrinter}" />
+                    </ComboBox>
+
+
+                    <ComboBox Width="250" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1"  Margin="0,5,0,5">
+                        <ComboBoxItem Content="COM1" />
+                        <ComboBoxItem Content="COM2" />
+                        <ComboBoxItem Content="COM3" />
+                    </ComboBox>
+
+
+                    <ComboBox Width="250" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1"  Margin="0,5,0,5" >
+                        <ComboBoxItem Content="9600" />
+                        <ComboBoxItem Content="14400" />
+                        <ComboBoxItem Content="19200" />
+                        <ComboBoxItem Content="28800" />
+                        <ComboBoxItem Content="38400" />
+                        <ComboBoxItem Content="56000" />
+                        <ComboBoxItem Content="57600" />
+                        <ComboBoxItem Content="76800" />
+                        <ComboBoxItem Content="111112" />
+                        <ComboBoxItem Content="115200" />
+                        <ComboBoxItem Content="128000" />
+                        <ComboBoxItem Content="230400" />
+                        <ComboBoxItem Content="250000" />
+                        <ComboBoxItem Content="256000" />
+                        <ComboBoxItem Content="460800" />
+                        <ComboBoxItem Content="500000" />
+                        <ComboBoxItem Content="921600" />
+                        <ComboBoxItem Content="1000000" />
+                        <ComboBoxItem Content="1500000" />
+                    </ComboBox>
+
+
+                    <ComboBox Width="250" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"  Margin="0,5,0,5" >
+                        <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.AutoDetect}" />
+                        <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Ascii}" />
+                        <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ProtocolRepetier}" />
+                    </ComboBox>
+
+
+                    <ComboBox Width="250" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"  Margin="0,5,0,5" >
+                        <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SendEmCommand}" />
+                        <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SendEmComDTR}" />
+                        <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.SendReset}" />
+                    </ComboBox>
+
+                    <TextBox Grid.Row="5" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" />
+
+                    <CheckBox Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.UsePingPong}"  Margin="0,5,0,5"  />
+
+                </Grid>
+            </controls:AccordionItem>
+            <controls:AccordionItem Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Printer}" Margin="0" >
+                <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Hidden" Margin="0" >
+                    <StackPanel Margin="0">
+                        <Grid HorizontalAlignment="Stretch" Margin="15,7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.TravelFeedRate}" Margin="0 0 20 0" Grid.Row="0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ZAxisFeedRate}" Margin="0 0 20 0" Grid.Row="1" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DefaultExtruderTemperature}" Margin="0 0 20 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DefaultHeatingBedTemerature}" Margin="0 0 20 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+<!--
+                            <TextBlock Text="Количество экструдеров" Margin="0 0 20 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+-->
+                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CheckInterval}" Margin="0 0 20 0" Grid.Row="5" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ParkPosition}" Margin="0 0 20 0" Grid.Row="6" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+
+                            <TextBox Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.travelFeedrate}" />
+                            <TextBox Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.zAxisFeedrate}" />
+                            <TextBox Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.defaultExtruderTemp}" />
+                            <TextBox Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.defaultHeatedBedTemp}" />
+<!--
+                            <TextBox Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.numExtruder}" />
+-->                            
+                            <TextBox Grid.Row="5" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.checkTempInterval}" />
+
+
+                            <StackPanel  Grid.Row="6" Grid.Column="1"  Orientation="Horizontal" >
+                                <TextBlock Text="X" Margin="20 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.disposeX}"  />
+
+                                <TextBlock Text="Y" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.disposeY}"  />
+
+                                <TextBlock Text="Z" Margin="40 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.disposeZ}" />
+                            </StackPanel>
+
+
+
+                            <CheckBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CheckExtruderAndBed}"  Margin="0,5,0,5" IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.checkTemp}" />
+                            <CheckBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.RemoveTemperatureRequests}"  Margin="0,5,0,5"  IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.logM105}" />
+                            <CheckBox Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ParkAfterJob}"  Margin="0,5,0,5"  IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.goDisposeAfterJob}" />
+                            <CheckBox Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DisableHeatedBed}"  Margin="0,5,0,5"  IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.disableHeatedBetAfterJob}" />
+                            <CheckBox Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DisableExtruderAfterJob}"  Margin="0,5,0,5"  IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.disableExtruderAfterJob}" />
+                            <CheckBox Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DisableMotors}"  Margin="0,5,0,5"  IsChecked="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.disableMotorsAfterJob}" />
+
+
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </controls:AccordionItem>
+            <controls:AccordionItem  Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Dimensions}"  HorizontalContentAlignment="Stretch" >
+                <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Hidden" Margin="0" >
+
+                    <Grid HorizontalAlignment="Stretch" Margin="15,7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrinterType}" Margin="0 0 20 0" Grid.Row="0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.HomeCoordinate}" Margin="0 10 0 0" Grid.Row="1" Grid.ColumnSpan="2"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                        <Border BorderThickness="0.5" Height="1" HorizontalAlignment="Stretch" Margin="0,7,0,7" BorderBrush="White" Grid.Row="3" Grid.ColumnSpan="2"></Border>
+
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ExtruderRange}" Margin="0 0 0 0" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                        <Border BorderThickness="0.5" Height="1" HorizontalAlignment="Stretch" Margin="0,7,0,7" BorderBrush="White" Grid.Row="6" Grid.ColumnSpan="2"></Border>
+
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Position0}" Margin="0 0 0 0" Grid.Row="7" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                        <Border BorderThickness="0.5" Height="1" HorizontalAlignment="Stretch" Margin="0,7,0,7" BorderBrush="White" Grid.Row="9" Grid.ColumnSpan="2"></Border>
+
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrintAreaWidth}" Margin="0 0 0 0" Grid.Row="10" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrintAreaDepth}" Margin="0 0 20 0" Grid.Row="11" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrintAreaHeight}" Margin="0 0 20 0" Grid.Row="12" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DumpAreaLeft}" Margin="0 0 0 0" Grid.Row="13" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DumpAreaFront}" Margin="0 0 20 0" Grid.Row="14" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DumpAreaWidth}" Margin="0 0 0 0" Grid.Row="15" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.DumpAreaDepth}" Margin="0 0 20 0" Grid.Row="16" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrintableRadius}" Margin="0 0 0 0" Grid.Row="17" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.PrintableHeight}" Margin="0 0 20 0" Grid.Row="18" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CNCTop}" Margin="0 0 20 0" Grid.Row="19" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+
+                        <ComboBox Width="300" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1"  Margin="0,5,0,5" SelectedIndex="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.printerType}" >
+                            <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CalssicPrinter}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ClassicPrinterWithDump}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CicularPrinter}" />
+                            <ComboBoxItem Content="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.CNCRouter}" />
+                    </ComboBox>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+                        <TextBlock Text="X" Margin="0 0 10 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <ComboBox Width="120" HorizontalAlignment="Right"   Margin="0,5,0,5" SelectedIndex="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.xhomeMode}" >
+                            <ComboBoxItem Content="Min" />
+                            <ComboBoxItem Content="Max" />
+                            <ComboBoxItem Content="0" />
+                        </ComboBox>
+
+                        <TextBlock Text="Y" Margin="20 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <ComboBox Width="160" HorizontalAlignment="Right"   Margin="0,5,0,5" SelectedIndex="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.yhomeMode}">
+                            <ComboBoxItem Content="Min" />
+                            <ComboBoxItem Content="Max" />
+                            <ComboBoxItem Content="0" />
+                        </ComboBox>
+
+                        <TextBlock Text="Z" Margin="20 0 10 0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <ComboBox Width="160" HorizontalAlignment="Right"  Margin="0,5,0,5" SelectedIndex="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.zhomemode}">
+                            <ComboBoxItem Content="Min" />
+                            <ComboBoxItem Content="Max" />
+                            <ComboBoxItem Content="0" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel  Grid.Row="5" Grid.ColumnSpan="2"  Orientation="Horizontal" >
+                        <TextBlock Text="X min" Margin="0 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.XMin}"  />
+
+                        <TextBlock Text="-  X max" Margin="15 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.XMax}" />
+
+                        <TextBlock Text="Y min" Margin="60 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="60" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.YMin}" />
+
+                        <TextBlock Text="-  Y max" Margin="15 0 10 0"  HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="60"  Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.YMax}" />
+                    </StackPanel>
+
+                    <StackPanel  Grid.Row="7" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,0">
+                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Left}" Margin="20 0 10 0"  HorizontalAlignment="Right"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="80"  HorizontalAlignment="Right" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.BedLeft}" />
+
+                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Front}" Margin="40 0 10 0"  HorizontalAlignment="Right"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Margin="0,5,0,0" Width="80"  HorizontalAlignment="Right" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.BedFront}" />
+                    </StackPanel>
+
+                    <TextBox Grid.Row="10" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,15,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.PrintAreaWidth}" />
+                    <TextBox Grid.Row="11" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.PrintAreaDepth}" />
+                    <TextBox Grid.Row="12" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.PrintAreaHeight}" />
+
+                    <TextBox Grid.Row="13" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,15,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.DumpAreaLeft}" />
+                    <TextBox Grid.Row="14" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.DumpAreaFront}" />
+                    <TextBox Grid.Row="15" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.DumpAreaWidth}" />
+                    <TextBox Grid.Row="16" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.DumpAreaDepth}" />
+
+                    <TextBox Grid.Row="17" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,15,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.rostockRadius}" />
+                    <TextBox Grid.Row="18" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.rostockHeight}" />
+
+                    <TextBox Grid.Row="19" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,5,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.cncZTop}" />
+
+                </Grid>
+                </ScrollViewer>
+            </controls:AccordionItem>
+            <controls:AccordionItem  Header="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.Extruders}"  HorizontalContentAlignment="Stretch" >
+                <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Hidden" Margin="0" >
+
+                    <Grid HorizontalAlignment="Stretch" Margin="15,7">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ExtruderNumber}" Margin="0 0 0 0" Grid.Row="0" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                        <TextBox Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,15,0,5" Text="{Binding  Source={x:Static setting:SettingsProvider.Instance}, Mode=TwoWay, Path=SelectedPrinterSettings.numExtruder}" />
+
+                        <ListView ItemsSource="{Binding Source={x:Static setting:SettingsProvider.Instance}, Path=SelectedPrinterSettings.Extruders}" Grid.Row="1" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0">
+                            
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Background" Value="Transparent"></Setter>
+                                    <Setter Property="Focusable" Value="false"/>
+                                    
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="{x:Null}" />
+                                            <Setter Property="BorderBrush" Value="{x:Null}" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{x:Null}" />
+                                            <Setter Property="BorderBrush" Value="{x:Null}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            
+                            <ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type ListViewItem}">
+                                    <Grid Background="Transparent" HorizontalAlignment="Stretch">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border BorderThickness="0.5" Height="1" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,7,0,7" BorderBrush="White" Grid.Row="0"></Border>
+
+                                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ExtruderName}" Margin="0 10 0 0" Grid.Row="1" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                        <TextBox Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,15,0,5" Text="{Binding Name}" />
+
+                                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ExtruderDiameter}" Margin="0 10 0 0" Grid.Row="2" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                        <TextBox Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,15,0,5" Text="{Binding Diameter}" />
+
+                                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ExtruderTemperatureOffset}" Margin="0 10 0 0" Grid.Row="3" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                        <TextBox Grid.Row="3" Grid.Column="1"  HorizontalAlignment="Right"  Width="250" Margin="0,15,0,5" Text="{Binding OffsetTemperature}" />
+
+                                        <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ExtruderColor}" Margin="0 10 0 0" Grid.Row="4" HorizontalAlignment="Left"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                        <xctk:ColorPicker HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"  Width="150" Margin="0,5,0,5" SelectedColor="{Binding ExtruderColor, Converter={StaticResource MColor_To_DColor}}"/>
+                                        
+                                        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ExtruderOffsetX}" Margin="0 0 10 0"  HorizontalAlignment="Right"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                            <TextBox Margin="25,5,0,0" Width="80"  HorizontalAlignment="Right" Text="{Binding OffsetX}" />
+
+                                            <TextBlock Text="{Binding Source={x:Static setting:Localization.Instance}, Path=CurrentLanguage.ExtruderOffsetY}" Margin="120 0 10 0"  HorizontalAlignment="Right"  Style="{StaticResource HeaderTextBlockStyle}" FontSize="14" VerticalAlignment="Center" />
+                                            <TextBox Margin="25,5,0,0" Width="80"  HorizontalAlignment="Right" Text="{Binding OffsetY }" />
+                                        </StackPanel>
+
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </Grid>
+                </ScrollViewer>
+            </controls:AccordionItem>
+        </controls:Accordion>
+    </Grid>
+    <!--
+    </StackPanel>
+-->
+</UserControl>

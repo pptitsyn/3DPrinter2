@@ -1,0 +1,326 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Navigation;
+using _3DPrinter.gcode;
+using _3DPrinter.model.geom;
+using _3DPrinter.projectManager;
+using _3DPrinter.setting;
+
+using _3DPrinter.model;
+using _3DPrinter.view.notification;
+
+namespace _3DPrinter.slice
+{
+
+    public delegate void sliceCompleteDelegate(string file);
+
+    public delegate void sliceEventDelegate(int max, int value,string state);
+    public class Slicer
+    {
+
+        public event sliceCompleteDelegate sliceComplete;
+
+        public event sliceEventDelegate sliceEvent;
+
+        private bool writeSTLBinary = true;
+
+        public string slicefile;
+
+        public bool checkWorkDir()
+        {
+            string dir = SettingsProvider.Instance.Global_Settings.Workdir;
+            if (!System.IO.Directory.Exists(dir))
+            {
+                MessageBox.Show(Localization.Instance.CurrentLanguage.WorkDirectoryErrorMessage, Localization.Instance.CurrentLanguage.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;;
+            }
+            return true;
+        }
+
+        public bool IsModelEmpty()
+        {
+            return !(ProjectManager.Instance.CurrentProject.ModelList.Count > 0);
+        }
+
+        public bool IsOutSideModel()
+        {
+            foreach (PrintModel stl in ProjectManager.Instance.CurrentProject.ModelList)
+            {
+                if (stl.outside)
+                {
+                    MessageBox.Show(Localization.Instance.CurrentLanguage.OutSideErrorMessage, Localization.Instance.CurrentLanguage.Error, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        private List<string> saveComposition(string filename)
+        {
+            List<string> files = new List<string>();
+
+            for (int i = 0; i < ProjectManager.Instance.CurrentProject.projectSettings.PrinterSettings.Extruders.Count; i++)
+            {
+                List<PrintModel> models = ProjectManager.Instance.CurrentProject.ListObjects().Where(x => x.ExtruderNumber == i).ToList();
+
+                if (models.Count > 0)
+                {
+                    TopoModel model = new TopoModel();
+                    foreach (PrintModel stl in models)
+                    {
+                        stl.UpdateMatrix();
+                        model.Merge(stl.ActiveModel, stl.trans);
+                    }
+
+                    model.exportSTL(filename + "composition" + i + ".stl", writeSTLBinary);
+                    files.Add(filename + "composition" + i + ".stl");
+                }
+                else
+                {
+                    files.Add("-");
+                }
+            }
+
+            return files;
+        }
+
+
+
+        public static RHBoundingBox lastBox = new RHBoundingBox();
+
+        public Slicer()
+        {
+//**            Main.printerModel.PropertyChanged += printerPropertyChanged;
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (postproc != null)
+                    postproc.Dispose();
+            }
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        public string wrapQuotes(string text)
+        {
+            if (text.StartsWith("\"") && text.EndsWith("\"")) return text;
+            return "\"" + text.Replace("\"", "\\\"") + "\"";
+        }
+
+        public delegate void LoadGCode(String myString);
+        
+        string postprocessFile = null;
+        Process postproc = null;
+
+
+        private int _ProgressFinish = 0;
+        public int ProgressFinish
+        {
+            get { return _ProgressFinish; }
+            set { _ProgressFinish = value; }
+        }
+
+        private int _currentIndex = 0;
+        public int CurrentIndex
+        {
+            get { return _currentIndex; }
+            set { _currentIndex = value; }
+        }
+
+        private string _currentState;
+        public string currentState
+        {
+            get { return _currentState; }
+            set
+            {
+                _currentState = value;
+            }
+        }
+
+        public void CancelProcess(object sender, EventArgs e)
+        {
+            ToasterControl s = (ToasterControl)sender;
+            s.CloseToaster();
+            if (postproc != null)
+            {
+                postproc.Close();
+                postproc.Dispose();
+            }
+        }
+
+        private  void OutputDataHandler(object sendingProcess,DataReceivedEventArgs outLine)
+        {
+            if (outLine.Data != null)
+            {
+                string[] tokens = outLine.Data.Split(':');
+                if ((tokens.Length == 4) && (tokens[0].Equals("Progress")))
+                {
+                    currentState = tokens[1];
+                    if (ProgressFinish == 0)
+                    {
+                        ProgressFinish = 3*Convert.ToInt32(tokens[3]);
+                    }
+                    int currentIndex = Convert.ToInt32(tokens[2]);
+                    if (currentState.Equals("insert"))
+                    {
+                        CurrentIndex = currentIndex;
+                    }
+                    else if (currentState.Equals("skin"))
+                    {
+                        CurrentIndex = Convert.ToInt32(tokens[3]) + currentIndex;
+                    }
+                    else if (currentState.Equals("export"))
+                    {
+                        CurrentIndex = 2*Convert.ToInt32(tokens[3]) + currentIndex;
+                    }
+
+
+                    if (sliceEvent != null)
+                        sliceEvent(ProgressFinish, CurrentIndex, currentState);
+                }
+            }
+        }
+
+
+
+        private void printerPropertyChanged(object sender, PropertyChangedEventArgs evt)
+        {
+
+        }
+
+
+        public void RunSlice()
+        {
+
+            string dir = SettingsProvider.Instance.Global_Settings.Workdir;
+
+            string settingsFile = dir + System.IO.Path.DirectorySeparatorChar + "curaConfig.ini";
+
+            if (!checkWorkDir() || IsModelEmpty() || IsOutSideModel()) return;
+
+
+            dir += System.IO.Path.DirectorySeparatorChar;
+
+            List<string> files = saveComposition(dir);
+
+            SettingsProvider.Instance.saveConfigurationToINI(settingsFile);
+
+
+            RunSliceNew(files, settingsFile,dir);
+
+        }
+
+
+
+        public bool RunSliceNew(List<string> files, string settingsFile,string directory)
+        {
+
+            if (postproc != null)
+            {
+                MessageBox.Show(Localization.Instance.CurrentLanguage.SlicerError, Localization.Instance.CurrentLanguage.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            string dir = SettingsProvider.Instance.Global_Settings.Workdir;
+            string exe = System.AppDomain.CurrentDomain.BaseDirectory +"CuraEngine\\CuraEngine.exe";
+            string inputFiles = "";
+            string outputFile = dir + "composition.gcode";
+            try
+            {
+
+
+                postproc = new Process();
+
+                slicefile = outputFile;
+
+                foreach (string file in files)
+                {
+                    inputFiles += wrapQuotes(file) + " ";
+                }
+
+
+                postproc.EnableRaisingEvents = true;
+                postproc.Exited += new EventHandler(ConversionExited);
+                postproc.StartInfo.FileName = wrapQuotes(exe);
+
+
+                //string target = StlToGCode(file);
+                if (File.Exists(outputFile))
+                    File.Delete(outputFile);
+
+                postproc.EnableRaisingEvents = true;
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("-p -v -c ");
+                sb.Append(wrapQuotes(settingsFile));
+                sb.Append(" -s posx=0 -s posy=0");
+                sb.Append(" -o ");
+                sb.Append(wrapQuotes(outputFile));
+                sb.Append(" ");
+                sb.Append(inputFiles);
+
+                postproc.StartInfo.Arguments = sb.ToString();
+                postproc.StartInfo.UseShellExecute = false;
+                postproc.StartInfo.RedirectStandardOutput = true;
+                postproc.StartInfo.CreateNoWindow = true;
+                postproc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                postproc.OutputDataReceived += new DataReceivedEventHandler(OutputDataHandler);
+                postproc.StartInfo.RedirectStandardError = true;
+                postproc.ErrorDataReceived += new DataReceivedEventHandler(OutputDataHandler);
+                postproc.Start();
+                // Start the asynchronous read of the standard output stream.
+                postproc.BeginOutputReadLine();
+                postproc.BeginErrorReadLine();
+                //Main.main.tab.SelectedTab = Main.main.tabPrint;
+            }
+            catch (Exception e)
+            {
+                return false;
+//                Main.conn.log(e.ToString(), false, 2);
+            }
+            return true;
+        }
+
+
+        private void ConversionExited(object sender, System.EventArgs e)
+        {
+            if (postproc == null) return;
+            try
+            {
+                postproc.Close();
+                postproc = null;
+                string gcodefile = StlToGCode(slicefile);
+                if (sliceComplete != null)
+                    sliceComplete(StlToGCode(slicefile));
+
+                //   Main.slicer.Postprocess(gcodefile);
+            }
+            catch { }
+        }
+
+
+        public string StlToGCode(string stl)
+        {
+            int p = stl.LastIndexOf('.');
+            if (p > 0) stl = stl.Substring(0, p);
+            return stl + ".gcode";
+        }
+
+
+
+    }
+}
